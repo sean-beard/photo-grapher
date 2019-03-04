@@ -80,18 +80,22 @@ class App extends React.Component<{}, State> {
     fetchDrivePhotosWithLocFromFolder(
       folderId,
       response =>
-        this.setState({ photos: getPhotosWithLocation(response.result.files) }),
+        this.setState({
+          photos: getPhotosWithLocation(response.result.files),
+          selectedFolderId: folderId
+        }),
       error => console.log(`Error fetching photos: ${error.message}`)
     );
 
   render() {
-    const { authorized, folders, photos } = this.state;
+    const { authorized, folders, photos, selectedFolderId } = this.state;
+    const showMap = selectedFolderId && photos.length > 0;
     return (
       <Wrapper>
         <Header>
           {!authorized && <LoginButton onLoginSuccess={this.getFolders} />}
           <Folders {...{ folders }} onSelection={this.handleFolderSelection} />
-          {photos.length > 0 && <GenericMap {...{ photos }} />}
+          {showMap && <GenericMap {...{ photos }} />}
         </Header>
       </Wrapper>
     );
