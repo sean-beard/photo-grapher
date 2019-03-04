@@ -15,7 +15,9 @@ Navigate to [http://localhost:8000/](http://localhost:8000/)
 React 📦 TypeScript 📦 Ramda 📦 Styled Components 📦 Leaflet
 ### Setting up Dev
 :heavy_check_mark: [Use the Google API Console to create a project](https://developers.google.com/drive/activity/v1/guides/project)
+
 :heavy_check_mark: [Set up an API key for the new project](https://support.google.com/googleapi/answer/6158862?hl=en)
+
 :heavy_check_mark:[Enable](https://support.google.com/googleapi/answer/6158841?hl=en) the following APIs:
  - Google Drive API
  - Google Picker API
@@ -28,7 +30,9 @@ cd photo-grapher/
 yarn install
 ```
 :clipboard: Clone the source code to your local machine.
+
 :walking: Navigate to the application's root directory.
+
 :rocket: Install dependencies.
 
 ### Configuration
