@@ -11,6 +11,7 @@ import Folders from "./components/Folders";
 import GenericMap from "./components/GenericMap";
 import { Photo, Folder } from "./types/api";
 import LoginButton from "./components/LoginButton";
+import Loader from "./components/Loading";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -30,6 +31,7 @@ const Header = styled.header`
 interface State {
   authorized: boolean;
   folders: Folder[];
+  loadingPhotos: boolean;
   photos: Photo[];
   selectedFolderId: string;
 }
@@ -38,6 +40,7 @@ class App extends React.Component<{}, State> {
   state: State = {
     authorized: false,
     folders: [],
+    loadingPhotos: false,
     photos: [],
     selectedFolderId: ""
   };
@@ -77,24 +80,45 @@ class App extends React.Component<{}, State> {
     console.log(`Error fetching folders: ${error.message}`);
 
   handleFolderSelection = (folderId: string) =>
-    fetchDrivePhotosWithLocFromFolder(
-      folderId,
-      response =>
-        this.setState({
-          photos: getPhotosWithLocation(response.result.files),
-          selectedFolderId: folderId
-        }),
-      error => console.log(`Error fetching photos: ${error.message}`)
+    this.setState({ loadingPhotos: true }, () =>
+      fetchDrivePhotosWithLocFromFolder(
+        folderId,
+        response => this.handlePhotosFetchSuccess(folderId, response),
+        this.handlePhotosFetchError
+      )
+    );
+
+  handlePhotosFetchSuccess = (
+    folderId: string,
+    response: gapi.client.HttpRequestFulfilled<any>
+  ) =>
+    this.setState({
+      loadingPhotos: false,
+      photos: getPhotosWithLocation(response.result.files),
+      selectedFolderId: folderId
+    });
+
+  handlePhotosFetchError = (error: any) =>
+    this.setState({ loadingPhotos: false }, () =>
+      console.log(`Error fetching photos: ${error.message}`)
     );
 
   render() {
-    const { authorized, folders, photos, selectedFolderId } = this.state;
-    const showMap = selectedFolderId && photos.length > 0;
+    const {
+      authorized,
+      folders,
+      loadingPhotos,
+      photos,
+      selectedFolderId
+    } = this.state;
+    const photosExist = photos.length > 0;
+    const showMap = selectedFolderId && photosExist && !loadingPhotos;
     return (
       <Wrapper>
         <Header>
           {!authorized && <LoginButton onLoginSuccess={this.getFolders} />}
           <Folders {...{ folders }} onSelection={this.handleFolderSelection} />
+          {loadingPhotos && <Loader />}
           {showMap && <GenericMap {...{ photos }} />}
         </Header>
       </Wrapper>
