@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { isNil } from "ramda";
 
 import { getPhotosWithLocation } from "./utils/files";
 import {
@@ -29,7 +30,7 @@ const Header = styled.header`
 `;
 
 interface State {
-  authorized: boolean;
+  authorized: boolean | null;
   folders: Folder[];
   loadingFolders: boolean;
   loadingPhotos: boolean;
@@ -39,7 +40,7 @@ interface State {
 
 class App extends React.Component<{}, State> {
   state: State = {
-    authorized: false,
+    authorized: null,
     folders: [],
     loadingFolders: false,
     loadingPhotos: false,
@@ -123,7 +124,10 @@ class App extends React.Component<{}, State> {
     return (
       <Wrapper>
         <Header>
-          {!authorized && <LoginButton onLoginSuccess={this.getFolders} />}
+          {isNil(authorized) && <Loader />}
+          {authorized === false && (
+            <LoginButton onLoginSuccess={this.getFolders} />
+          )}
           <Folders {...{ folders }} onSelection={this.handleFolderSelection} />
           {(loadingFolders || loadingPhotos) && <Loader />}
           {showMap && <GenericMap {...{ photos }} />}
