@@ -31,6 +31,7 @@ const Header = styled.header`
 interface State {
   authorized: boolean;
   folders: Folder[];
+  loadingFolders: boolean;
   loadingPhotos: boolean;
   photos: Photo[];
   selectedFolderId: string;
@@ -40,6 +41,7 @@ class App extends React.Component<{}, State> {
   state: State = {
     authorized: false,
     folders: [],
+    loadingFolders: false,
     loadingPhotos: false,
     photos: [],
     selectedFolderId: ""
@@ -67,17 +69,21 @@ class App extends React.Component<{}, State> {
   };
 
   getFolders = () =>
-    fetchRootLevelDriveFolders(
-      this.handleFolderFetchSuccess,
-      this.handleFolderFetchError
+    this.setState({ loadingFolders: true }, () =>
+      fetchRootLevelDriveFolders(
+        this.handleFolderFetchSuccess,
+        this.handleFolderFetchError
+      )
     );
 
   handleFolderFetchSuccess = (
     response: gapi.client.HttpRequestFulfilled<any>
-  ) => this.setState({ folders: response.result.files });
+  ) => this.setState({ folders: response.result.files, loadingFolders: false });
 
   handleFolderFetchError = (error: any) =>
-    console.log(`Error fetching folders: ${error.message}`);
+    this.setState({ loadingFolders: false }, () =>
+      console.log(`Error fetching folders: ${error.message}`)
+    );
 
   handleFolderSelection = (folderId: string) =>
     this.setState({ loadingPhotos: true }, () =>
@@ -107,6 +113,7 @@ class App extends React.Component<{}, State> {
     const {
       authorized,
       folders,
+      loadingFolders,
       loadingPhotos,
       photos,
       selectedFolderId
@@ -118,7 +125,7 @@ class App extends React.Component<{}, State> {
         <Header>
           {!authorized && <LoginButton onLoginSuccess={this.getFolders} />}
           <Folders {...{ folders }} onSelection={this.handleFolderSelection} />
-          {loadingPhotos && <Loader />}
+          {(loadingFolders || loadingPhotos) && <Loader />}
           {showMap && <GenericMap {...{ photos }} />}
         </Header>
       </Wrapper>
