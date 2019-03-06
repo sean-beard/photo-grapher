@@ -9,7 +9,7 @@ import {
   fetchRootLevelDriveFolders
 } from "./utils/api";
 import Folders from "./components/Folders";
-import GenericMap from "./components/GenericMap";
+import Map from "./components/Map";
 import { Photo, Folder } from "./types/api";
 import LoginButton from "./components/LoginButton";
 import Loader from "./components/Loading";
@@ -130,7 +130,7 @@ class App extends React.Component<{}, State> {
           )}
           <Folders {...{ folders }} onSelection={this.handleFolderSelection} />
           {(loadingFolders || loadingPhotos) && <Loader />}
-          {showMap && <GenericMap {...{ photos }} />}
+          {showMap && <Map {...{ photos }} />}
         </Header>
       </Wrapper>
     );

@@ -1,12 +1,12 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map as LMap, TileLayer, Marker, Popup } from "react-leaflet";
 import { path } from "ramda";
 
 import { Location } from "../types/map";
 import { Photo } from "../types/api";
 
-const LeafletMap = styled(Map)`
+const LeafletMap = styled(LMap)`
   height: 325px;
   width: 100%;
   margin-bottom: 2.5rem;
@@ -36,7 +36,7 @@ const PlotPhotos: React.SFC<Props> = ({ photos }) => (
   </>
 );
 
-const GenericMap: React.SFC<Props> = ({ photos }) => {
+const Map: React.SFC<Props> = ({ photos }) => {
   // TODO: dynamic center location
   const center: Location = [42.151197, -73.038651];
   return (
@@ -50,4 +50,4 @@ const GenericMap: React.SFC<Props> = ({ photos }) => {
   );
 };
 
-export default GenericMap;
+export default Map;
