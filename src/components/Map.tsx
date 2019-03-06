@@ -5,11 +5,13 @@ import { path } from "ramda";
 
 import { Location } from "../types/map";
 import { Photo } from "../types/api";
+import ImagePopup from "./ImagePopup";
 
 const LeafletMap = styled(LMap)`
   height: 325px;
   width: 100%;
   margin-bottom: 2.5rem;
+  z-index: 0;
 `;
 
 interface Props {
@@ -26,9 +28,7 @@ const PlotPhotos: React.SFC<Props> = ({ photos }) => (
         lat &&
         long && (
           <Marker key={id} position={[lat, long]}>
-            <Popup>
-              <img src={`https://docs.google.com/uc?id=${id}`} width="50" />
-            </Popup>
+            <ImagePopup photoId={id} />
           </Marker>
         )
       );
