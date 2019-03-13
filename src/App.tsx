@@ -124,6 +124,9 @@ class App extends React.Component<{}, State> {
     return (
       <Wrapper>
         <Header>
+          {!photosExist && (
+            <h2>Whoops... Couldn't find any photos with location data.</h2>
+          )}
           {isNil(authorized) && <Loader />}
           {authorized === false && (
             <LoginButton onLoginSuccess={this.getFolders} />
