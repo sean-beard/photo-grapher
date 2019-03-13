@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Spacing } from "../styles/Base";
+import { Spacing, Colors } from "../styles/Base";
 
 export const Button = styled.button`
   height: ${Spacing.LARGE};
@@ -7,5 +7,5 @@ export const Button = styled.button`
   min-width: 6.375rem;
   cursor: pointer;
   border-radius: 3px;
-  background-color: #61dafb;
+  background-color: ${Colors.ACTION_BLUE};
 `;

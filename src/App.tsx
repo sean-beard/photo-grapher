@@ -13,20 +13,21 @@ import Map from "./components/Map";
 import { Photo, Folder } from "./types/api";
 import LoginButton from "./components/LoginButton";
 import Loader from "./components/Loading";
+import { Colors } from "./styles/Base";
 
 const Wrapper = styled.div`
   text-align: center;
 `;
 
 const Header = styled.header`
-  background-color: #282c34;
+  background-color: ${Colors.BASE_BLUE};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: ${Colors.WHITE};
 `;
 
 interface State {

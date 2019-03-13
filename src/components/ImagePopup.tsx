@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import Modal from "./Modal";
 import Loader from "./Loading";
-import { Spacing } from "../styles/Base";
+import { Spacing, Colors } from "../styles/Base";
 
 const ViewButtonWrapper = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const Photo = styled.img`
 
 const LoaderWrapper = styled.div`
   align-items: center;
-  background-color: #282c34;
+  background-color: ${Colors.BASE_BLUE};
   display: flex;
   height: 150px;
   justify-content: center;
@@ -64,7 +64,7 @@ class ImagePopup extends React.Component<Props, State> {
           onRequestClose={() => this.setState({ showModal: false })}
           style={{
             content: {
-              backgroundColor: "#282c34",
+              backgroundColor: Colors.BASE_BLUE,
               border: "2px solid #282c34",
               borderRadius: "3px",
               padding: "0"
