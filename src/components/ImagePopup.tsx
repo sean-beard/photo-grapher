@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import Modal from "./Modal";
 import Loader from "./Loading";
+import { Spacing } from "../styles/Base";
 
 const ViewButtonWrapper = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ const ViewButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: ${Spacing.MEDIUM};
 `;
 
 const Photo = styled.img`

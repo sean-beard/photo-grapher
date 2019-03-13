@@ -1,5 +1,6 @@
 import * as React from "react";
 import ReactModal from "react-modal";
+import { Spacing } from "../styles/Base";
 
 /**
  * @prop children - React node to be used as modal content.
@@ -29,7 +30,7 @@ export const Modal = (props: Props) => {
     overlay: {
       display: "flex",
       backgroundColor: "rgba(74, 72, 68, 0.2)",
-      padding: "1rem"
+      padding: Spacing.SMALL
     },
     content: {
       alignSelf: "center",
@@ -37,7 +38,7 @@ export const Modal = (props: Props) => {
       border: "none",
       borderRadius: "none",
       outline: "none",
-      padding: "4rem",
+      padding: Spacing.XLARGE,
       position: "relative",
       left: "auto",
       right: "auto",

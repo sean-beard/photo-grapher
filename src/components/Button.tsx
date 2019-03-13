@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { Spacing } from "../styles/Base";
 
 export const Button = styled.button`
-  height: 2.5rem;
-  font-size: 1.5rem;
+  height: ${Spacing.LARGE};
+  font-size: ${Spacing.NORMAL};
   min-width: 6.375rem;
   cursor: pointer;
   border-radius: 3px;

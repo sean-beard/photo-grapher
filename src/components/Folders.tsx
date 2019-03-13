@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 import { Folder } from "../types/api";
 import { Button } from "./Button";
+import { Spacing } from "../styles/Base";
 
 const ButtonWrapper = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: ${Spacing.SMALL};
 `;
 
 const FolderButton = styled(Button)`

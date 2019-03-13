@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 import { googleLogin } from "../utils/api";
 import { Button } from "./Button";
+import { Spacing } from "../styles/Base";
 
 const Wrapper = styled.div`
-  margin: 1rem;
+  margin: ${Spacing.SMALL};
 `;
 
 interface Props {

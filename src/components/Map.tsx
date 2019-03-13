@@ -6,11 +6,12 @@ import { path } from "ramda";
 import { Location } from "../types/map";
 import { Photo } from "../types/api";
 import ImagePopup from "./ImagePopup";
+import { Spacing } from "../styles/Base";
 
 const LeafletMap = styled(LMap)`
   height: 325px;
   width: 100%;
-  margin-bottom: 2.5rem;
+  margin-bottom: ${Spacing.LARGE};
   z-index: 0;
 `;
 
