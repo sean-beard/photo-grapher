@@ -6,6 +6,7 @@ export interface Folder {
 export interface Photo {
   id: string;
   imageMediaMetadata: ImageMediaMetadata;
+  name: string;
 }
 
 export interface ImageMediaMetadata {

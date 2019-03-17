@@ -66,7 +66,7 @@ export const fetchDrivePhotosWithLocFromFolder = (
   onError: (error: any) => void
 ) =>
   googleDriveFetch(
-    `"${folderId}" in parents and mimeType contains 'image'&fields=files(id,imageMediaMetadata)`,
+    `"${folderId}" in parents and mimeType contains 'image'&fields=files(id,name,imageMediaMetadata)`,
     response => onSuccess(response),
     error => onError(error)
   );
