@@ -19,7 +19,7 @@ interface Props {
   photos: Photo[];
 }
 
-const PlotPhotos: React.SFC<Props> = ({ photos }) => (
+const PlotPhotos: React.FunctionComponent<Props> = ({ photos }) => (
   <>
     {photos.map(({ id, imageMediaMetadata: { location } }) => {
       const lat: number | undefined = path(["latitude"], location || {});
@@ -37,7 +37,7 @@ const PlotPhotos: React.SFC<Props> = ({ photos }) => (
   </>
 );
 
-const Map: React.SFC<Props> = ({ photos }) => {
+const Map: React.FunctionComponent<Props> = ({ photos }) => {
   // TODO: dynamic center location
   const center: Location = [42.151197, -73.038651];
   return (

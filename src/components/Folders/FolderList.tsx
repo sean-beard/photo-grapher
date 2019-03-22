@@ -18,7 +18,10 @@ interface Props {
   onSelection: (folderId: string) => void;
 }
 
-const FolderList: React.SFC<Props> = ({ folders, onSelection }) => (
+const FolderList: React.FunctionComponent<Props> = ({
+  folders,
+  onSelection
+}) => (
   <>
     {folders.length > 0 && <h1>select folder with photos to map</h1>}
     {folders.map(({ id, name }) => (

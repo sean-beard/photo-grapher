@@ -13,7 +13,7 @@ interface Props {
   onLoginSuccess: () => void;
 }
 
-const LoginButton: React.SFC<Props> = ({ onLoginSuccess }) => (
+const LoginButton: React.FunctionComponent<Props> = ({ onLoginSuccess }) => (
   <Wrapper>
     <Button onClick={() => googleLogin(onLoginSuccess)}>
       Sign In To Google
