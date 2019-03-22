@@ -3,9 +3,9 @@ import { Popup } from "react-leaflet";
 import ProgressiveImage from "react-progressive-image";
 import styled from "styled-components";
 
-import Modal from "./Modal";
-import Loader from "./Loading";
-import { Spacing, Colors } from "../styles/Base";
+import Modal from "components/Modal";
+import Loader from "components/Loading";
+import { Spacing, Colors } from "styles/Base";
 
 const ViewButtonWrapper = styled.div`
   display: flex;

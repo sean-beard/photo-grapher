@@ -4,7 +4,7 @@ import { getPhotosWithLocation } from "../../utils/files";
 import {
   fetchDrivePhotosWithLocFromFolder,
   fetchRootLevelDriveFolders
-} from "../../utils/api";
+} from "utils/api";
 import FolderList from "./FolderList";
 import { Photo, Folder } from "../../types/api";
 import Loader from "../Loading";

@@ -2,13 +2,13 @@ import * as React from "react";
 import styled from "styled-components";
 import { isNil } from "ramda";
 
-import { authorizeWithGoogle } from "./utils/api";
-import Map from "./components/Map";
-import { Photo } from "./types/api";
-import LoginButton from "./components/LoginButton";
-import Loader from "./components/Loading";
-import { Colors } from "./styles/Base";
-import Folders from "./components/Folders";
+import { authorizeWithGoogle } from "utils/api";
+import Map from "components/Map";
+import { Photo } from "types/api";
+import LoginButton from "components/LoginButton";
+import Loader from "components/Loading";
+import { Colors } from "styles/Base";
+import Folders from "components/Folders";
 
 const Wrapper = styled.div`
   text-align: center;

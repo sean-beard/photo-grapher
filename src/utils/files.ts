@@ -1,6 +1,6 @@
 import { contains, filter } from "ramda";
 
-import { Photo } from "../types/api";
+import { Photo } from "types/api";
 
 export const getPhotoFiles = filter((file: any) =>
   contains("image", file.mimeType)

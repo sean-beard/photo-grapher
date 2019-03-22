@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { Map as LMap, TileLayer, Marker, Popup } from "react-leaflet";
 import { path } from "ramda";
 
-import { Location } from "../types/map";
-import { Photo } from "../types/api";
-import ImagePopup from "./ImagePopup";
-import { Spacing } from "../styles/Base";
+import { Location } from "types/map";
+import { Photo } from "types/api";
+import ImagePopup from "components/ImagePopup";
+import { Spacing } from "styles/Base";
 
 const LeafletMap = styled(LMap)`
   height: 325px;

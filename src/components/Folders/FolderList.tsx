@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import { Folder } from "../../types/api";
-import { Button } from "../Button";
-import { Spacing } from "../../styles/Base";
+import { Folder } from "types/api";
+import { Button } from "components/Button";
+import { Spacing } from "styles/Base";
 
 const ButtonWrapper = styled.div`
   margin-bottom: ${Spacing.SMALL};

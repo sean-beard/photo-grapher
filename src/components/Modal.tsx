@@ -1,6 +1,7 @@
 import * as React from "react";
 import ReactModal from "react-modal";
-import { Spacing } from "../styles/Base";
+
+import { Spacing } from "styles/Base";
 
 /**
  * @prop children - React node to be used as modal content.

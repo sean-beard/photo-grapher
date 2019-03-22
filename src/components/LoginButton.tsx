@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import { googleLogin } from "../utils/api";
-import { Button } from "./Button";
-import { Spacing } from "../styles/Base";
+import { googleLogin } from "utils/api";
+import { Button } from "components/Button";
+import { Spacing } from "styles/Base";
 
 const Wrapper = styled.div`
   margin: ${Spacing.SMALL};

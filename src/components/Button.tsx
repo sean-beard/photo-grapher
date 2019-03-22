@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Spacing, Colors } from "../styles/Base";
+
+import { Spacing, Colors } from "styles/Base";
 
 export const Button = styled.button`
   height: ${Spacing.LARGE};
