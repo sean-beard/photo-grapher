@@ -31,57 +31,49 @@ interface State {
   showMap: boolean;
 }
 
-class App extends React.Component<{}, State> {
-  state: State = {
-    authorized: null,
-    photos: [],
-    showMap: false
-  };
+const App: React.FunctionComponent = () => {
+  const [authorized, setAuthorized] = React.useState<State["authorized"]>(null);
+  const [photos, setPhotos] = React.useState<State["photos"]>([]);
+  const [showMap, setShowMap] = React.useState<State["showMap"]>(false);
 
-  componentDidMount() {
-    this.authorize();
-  }
+  React.useEffect(() => authorize(), [authorized]);
 
-  componentDidUpdate() {
-    if (!this.state.authorized) {
-      this.authorize();
-    }
-  }
+  const authorize = () =>
+    authorizeWithGoogle(handleAuthSuccess, handleAuthError);
 
-  authorize = () =>
-    authorizeWithGoogle(this.handleAuthSuccess, this.handleAuthError);
+  const handleAuthSuccess = () => setAuthorized(true);
 
-  handleAuthSuccess = () => this.setState({ authorized: true });
-
-  handleAuthError = () => {
-    this.setState({ authorized: false });
+  const handleAuthError = () => {
     console.log("Error authorizing with Google...");
+    setAuthorized(false);
   };
 
-  handlePhotoFetchSuccess = (photos: Photo[]) =>
-    this.setState({ photos, showMap: true });
+  const handlePhotoFetchSuccess = (photos: Photo[]) => {
+    setPhotos(photos);
+    setShowMap(true);
+  };
 
-  handlePhotoFetchFailure = () => this.setState({ photos: [], showMap: false });
+  const handlePhotoFetchFailure = () => {
+    setPhotos([]);
+    setShowMap(false);
+  };
 
-  render() {
-    const { authorized, photos, showMap } = this.state;
-    return (
-      <Wrapper>
-        <Header>
-          {isNil(authorized) && <Loader />}
-          {authorized === false && (
-            <LoginButton onLoginSuccess={this.handleAuthSuccess} />
-          )}
-          <Folders
-            authorized={!!authorized}
-            onPhotoFetchSuccess={this.handlePhotoFetchSuccess}
-            onPhotoFetchFailure={this.handlePhotoFetchFailure}
-          />
-          {showMap && <Map {...{ photos }} />}
-        </Header>
-      </Wrapper>
-    );
-  }
-}
+  return (
+    <Wrapper>
+      <Header>
+        {isNil(authorized) && <Loader />}
+        {authorized === false && (
+          <LoginButton onLoginSuccess={handleAuthSuccess} />
+        )}
+        <Folders
+          authorized={!!authorized}
+          onPhotoFetchSuccess={handlePhotoFetchSuccess}
+          onPhotoFetchFailure={handlePhotoFetchFailure}
+        />
+        {showMap && <Map {...{ photos }} />}
+      </Header>
+    </Wrapper>
+  );
+};
 
 export default App;
