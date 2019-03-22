@@ -8,7 +8,7 @@ import {
   fetchDrivePhotosWithLocFromFolder,
   fetchRootLevelDriveFolders
 } from "./utils/api";
-import Folders from "./components/Folders";
+import FolderList from "./components/FolderList";
 import Map from "./components/Map";
 import { Photo, Folder } from "./types/api";
 import LoginButton from "./components/LoginButton";
@@ -132,7 +132,10 @@ class App extends React.Component<{}, State> {
           {authorized === false && (
             <LoginButton onLoginSuccess={this.getFolders} />
           )}
-          <Folders {...{ folders }} onSelection={this.handleFolderSelection} />
+          <FolderList
+            {...{ folders }}
+            onSelection={this.handleFolderSelection}
+          />
           {(loadingFolders || loadingPhotos) && <Loader />}
           {showMap && <Map {...{ photos }} />}
         </Header>
