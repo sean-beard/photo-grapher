@@ -33,62 +33,52 @@ const LoaderWrapper = styled.div`
   width: 50vw;
 `;
 
-interface OwnProps {
+interface Props {
   photoId: string;
 }
-
-type Props = OwnProps;
 
 interface State {
   showModal: boolean;
 }
 
-class ImagePopup extends React.Component<Props, State> {
-  state: State = {
-    showModal: false
-  };
-  render() {
-    const { showModal } = this.state;
-    const { photoId } = this.props;
-    return (
-      <>
-        <Popup>
-          <ViewButtonWrapper>
-            <ViewButton onClick={() => this.setState({ showModal: true })}>
-              👀
-            </ViewButton>
-          </ViewButtonWrapper>
-        </Popup>
-        <Modal
-          isOpen={showModal}
-          onRequestClose={() => this.setState({ showModal: false })}
-          style={{
-            content: {
-              backgroundColor: Colors.BASE_BLUE,
-              border: "2px solid #282c34",
-              borderRadius: "3px",
-              padding: "0"
-            }
-          }}
+const ImagePopup: React.FunctionComponent<Props> = ({ photoId }) => {
+  const [showModal, setShowModal] = React.useState<State["showModal"]>(false);
+  return (
+    <>
+      <Popup>
+        <ViewButtonWrapper>
+          <ViewButton onClick={() => setShowModal(true)}>👀</ViewButton>
+        </ViewButtonWrapper>
+      </Popup>
+      <Modal
+        isOpen={showModal}
+        onRequestClose={() => setShowModal(false)}
+        style={{
+          content: {
+            backgroundColor: Colors.BASE_BLUE,
+            border: "2px solid #282c34",
+            borderRadius: "3px",
+            padding: "0"
+          }
+        }}
+      >
+        <ProgressiveImage
+          src={`https://docs.google.com/uc?id=${photoId}`}
+          placeholder=""
         >
-          <ProgressiveImage
-            src={`https://docs.google.com/uc?id=${photoId}`}
-            placeholder=""
-          >
-            {(src: string, loading: boolean) => {
-              return loading ? (
-                <LoaderWrapper>
-                  <Loader />
-                </LoaderWrapper>
-              ) : (
-                <Photo src={src} alt="photo" />
-              );
-            }}
-          </ProgressiveImage>
-        </Modal>
-      </>
-    );
-  }
-}
+          {(src: string, loading: boolean) => {
+            return loading ? (
+              <LoaderWrapper>
+                <Loader />
+              </LoaderWrapper>
+            ) : (
+              <Photo src={src} alt="photo" />
+            );
+          }}
+        </ProgressiveImage>
+      </Modal>
+    </>
+  );
+};
 
 export default ImagePopup;
