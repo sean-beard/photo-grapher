@@ -14,7 +14,7 @@ export interface ImageMediaMetadata {
 }
 
 export interface ImageLocation {
+  altitude?: number;
   latitude?: number;
   longitude?: number;
-  altitude?: number;
 }
