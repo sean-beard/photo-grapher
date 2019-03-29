@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { isNil } from "ramda";
+import { isNil, complement, isEmpty } from "ramda";
 
 import { authorizeWithGoogle } from "utils/api";
 import Map from "components/Map";
@@ -71,6 +71,7 @@ const App: React.FunctionComponent = () => {
           onPhotoFetchFailure={handlePhotoFetchFailure}
         />
         {showMap && <Map {...{ photos }} />}
+        {complement(isEmpty)(photos) && <h2>Total photos: {photos.length}</h2>}
       </Header>
     </Wrapper>
   );
