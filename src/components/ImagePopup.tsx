@@ -66,15 +66,15 @@ const ImagePopup: React.FunctionComponent<Props> = ({ photoId }) => {
           src={`https://docs.google.com/uc?id=${photoId}`}
           placeholder=""
         >
-          {(src: string, loading: boolean) => {
-            return loading ? (
+          {(src: string, loading: boolean) =>
+            loading ? (
               <LoaderWrapper>
                 <Loader />
               </LoaderWrapper>
             ) : (
               <Photo src={src} alt="photo" />
-            );
-          }}
+            )
+          }
         </ProgressiveImage>
       </Modal>
     </>
