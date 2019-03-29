@@ -1,4 +1,5 @@
 import * as React from "react";
+import styled from "styled-components";
 
 import { getPhotosWithLocation } from "../../utils/files";
 import {
@@ -8,6 +9,10 @@ import {
 import FolderList from "./FolderList";
 import { Photo, Folder } from "../../types/api";
 import Loader from "../Loading";
+
+const LoaderWrapper = styled.div`
+  margin-bottom: 2.5rem;
+`;
 
 interface Props {
   authorized: boolean;
@@ -106,7 +111,11 @@ const Folders: React.FunctionComponent<Props> = ({
         <h2>Whoops... Couldn't find any photos with location data.</h2>
       )}
       <FolderList {...{ folders }} onSelection={handleFolderSelection} />
-      {(loadingFolders || loadingPhotos) && <Loader />}
+      {(loadingFolders || loadingPhotos) && (
+        <LoaderWrapper>
+          <Loader />
+        </LoaderWrapper>
+      )}
     </>
   );
 };
