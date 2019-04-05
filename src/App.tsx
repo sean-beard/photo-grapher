@@ -47,13 +47,15 @@ const AverageCountWrapper = styled.div`
 
   > * {
     width: 100%;
+    display: flex;
+    justify-content: center;
   }
 `;
 
 const ListingWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 interface State {
@@ -107,14 +109,16 @@ const App: React.FunctionComponent = () => {
             <h2>Total photos: {photos.length}</h2>
             <h3>Average Photo Count Per Week Day</h3>
             <AverageCountWrapper>
-              <ListingWrapper>
-                {avgCountPerWeekDay(photos).map(([day, count], index) => (
-                  <Listing key={index}>
-                    <h4>{`${day}:`}</h4>
-                    <h4>{Math.round(count * 100) / 100}</h4>
-                  </Listing>
-                ))}
-              </ListingWrapper>
+              <div>
+                <ListingWrapper>
+                  {avgCountPerWeekDay(photos).map(([day, count], index) => (
+                    <Listing key={index}>
+                      <h4>{`${day}:`}</h4>
+                      <h4>{Math.round(count * 100) / 100}</h4>
+                    </Listing>
+                  ))}
+                </ListingWrapper>
+              </div>
               <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
                 <VictoryBar
                   style={{ data: { fill: Colors.ACTION_BLUE } }}
