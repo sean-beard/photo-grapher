@@ -20,7 +20,8 @@
     "react-scripts": "2.1.5",
     "react-spinners": "^0.5.3",
     "styled-components": "^4.1.3",
-    "typescript": "3.3.3"
+    "typescript": "3.3.3",
+    "victory": "^32.1.0"
   },
   "devDependencies": {
     "@types/gapi": "^0.0.36",
@@ -32,7 +33,8 @@
     "@types/react-leaflet": "^2.2.0",
     "@types/react-modal": "^3.8.1",
     "@types/react-router-dom": "^4.3.1",
-    "@types/styled-components": "^4.1.10"
+    "@types/styled-components": "^4.1.10",
+    "@types/victory": "^31.0.14"
   },
   "eslintConfig": {
     "extends": "react-app"

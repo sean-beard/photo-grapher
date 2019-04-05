@@ -80,3 +80,24 @@ export const getUniqueDates = (dates: Date[]) =>
     date => `${date.getDay()} ${date.getMonth()} ${date.getFullYear()}`,
     dates
   );
+
+export const getAbbreviatedDay = (dayOfTheWeek: DayOfTheWeek) => {
+  switch (dayOfTheWeek) {
+    case DayOfTheWeek.SUNDAY:
+      return "Sun";
+    case DayOfTheWeek.MONDAY:
+      return "Mon";
+    case DayOfTheWeek.TUESDAY:
+      return "Tues";
+    case DayOfTheWeek.WEDNESDAY:
+      return "Wed";
+    case DayOfTheWeek.THURSDAY:
+      return "Thur";
+    case DayOfTheWeek.FRIDAY:
+      return "Fri";
+    case DayOfTheWeek.SATURDAY:
+      return "Sat";
+    default:
+      return null;
+  }
+};

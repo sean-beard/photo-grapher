@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { isNil, complement, isEmpty } from "ramda";
+import { VictoryChart, VictoryTheme, VictoryBar } from "victory";
 
 import { authorizeWithGoogle } from "utils/api";
 import Map from "components/Map";
@@ -10,6 +11,7 @@ import Loader from "components/Loading";
 import { Colors, Spacing } from "styles/Base";
 import Folders from "components/Folders";
 import { avgCountPerWeekDay } from "utils/photos";
+import { getAbbreviatedDay } from "utils/time";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -30,12 +32,28 @@ const Listing = styled.div`
   display: flex;
 
   > * {
-    margin: ${Spacing.MICRO} auto;
+    margin: ${Spacing.MICRO} 0 ${Spacing.MICRO} ${Spacing.MEDIUM};
   }
 
   h4 + h4 {
     margin-left: ${Spacing.MICRO};
   }
+`;
+
+const AverageCountWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  > * {
+    width: 100%;
+  }
+`;
+
+const ListingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 interface State {
@@ -88,12 +106,25 @@ const App: React.FunctionComponent = () => {
           <>
             <h2>Total photos: {photos.length}</h2>
             <h3>Average Photo Count Per Week Day</h3>
-            {avgCountPerWeekDay(photos).map(([day, count], index) => (
-              <Listing key={index}>
-                <h4>{`${day}:`}</h4>
-                <h4>{Math.round(count * 100) / 100}</h4>
-              </Listing>
-            ))}
+            <AverageCountWrapper>
+              <ListingWrapper>
+                {avgCountPerWeekDay(photos).map(([day, count], index) => (
+                  <Listing key={index}>
+                    <h4>{`${day}:`}</h4>
+                    <h4>{Math.round(count * 100) / 100}</h4>
+                  </Listing>
+                ))}
+              </ListingWrapper>
+              <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
+                <VictoryBar
+                  style={{ data: { fill: Colors.ACTION_BLUE } }}
+                  data={avgCountPerWeekDay(photos).map(([day, count]) => ({
+                    x: getAbbreviatedDay(day),
+                    y: Math.round(count * 100) / 100
+                  }))}
+                />
+              </VictoryChart>
+            </AverageCountWrapper>
           </>
         )}
       </Header>
