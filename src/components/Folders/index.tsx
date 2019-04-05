@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import { getPhotosWithLocation } from "../../utils/files";
+import { getPhotosWithLocation } from "utils/photos";
 import {
   fetchDrivePhotosWithLocFromFolder,
   fetchRootLevelDriveFolders
