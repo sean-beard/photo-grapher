@@ -38,7 +38,7 @@ const PlotPhotos: React.FunctionComponent<Props> = ({ photos }) => (
   </>
 );
 
-const Map: React.FunctionComponent<Props> = ({ photos }) => {
+const PhotoMap: React.FunctionComponent<Props> = ({ photos }) => {
   // TODO: dynamic center location
   const center: Location = [42.151197, -73.038651];
   return hasItems(photos) ? (
@@ -52,4 +52,4 @@ const Map: React.FunctionComponent<Props> = ({ photos }) => {
   ) : null;
 };
 
-export default Map;
+export default PhotoMap;

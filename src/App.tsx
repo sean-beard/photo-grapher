@@ -4,7 +4,7 @@ import { isNil } from "ramda";
 import { VictoryChart, VictoryTheme, VictoryBar } from "victory";
 
 import { authorizeWithGoogle } from "utils/api";
-import Map from "components/Map";
+import PhotoMap from "components/PhotoMap";
 import { Photo } from "types/api";
 import LoginButton from "components/LoginButton";
 import Loader from "components/Loading";
@@ -100,7 +100,7 @@ const App: React.FunctionComponent = () => {
           onPhotoFetchSuccess={handlePhotoFetchSuccess}
           onPhotoFetchFailure={handlePhotoFetchFailure}
         />
-        <Map {...{ photos }} />
+        <PhotoMap {...{ photos }} />
         {hasItems(photos) && (
           <>
             <h2>Total photos: {photos.length}</h2>
