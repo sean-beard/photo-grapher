@@ -7,6 +7,7 @@ import { Location } from "types/map";
 import { Photo } from "types/api";
 import ImagePopup from "components/ImagePopup";
 import { Spacing } from "styles/Base";
+import { hasItems } from "utils/data-operations";
 
 const LeafletMap = styled(LMap)`
   height: 325px;
@@ -16,12 +17,12 @@ const LeafletMap = styled(LMap)`
 `;
 
 interface Props {
-  photos: Photo[];
+  photos?: Photo[];
 }
 
 const PlotPhotos: React.FunctionComponent<Props> = ({ photos }) => (
   <>
-    {photos.map(({ id, imageMediaMetadata: { location } }) => {
+    {(photos || []).map(({ id, imageMediaMetadata: { location } }) => {
       const lat: number | undefined = path(["latitude"], location || {});
       const long: number | undefined = path(["longitude"], location || {});
 
@@ -40,7 +41,7 @@ const PlotPhotos: React.FunctionComponent<Props> = ({ photos }) => (
 const Map: React.FunctionComponent<Props> = ({ photos }) => {
   // TODO: dynamic center location
   const center: Location = [42.151197, -73.038651];
-  return (
+  return hasItems(photos) ? (
     <LeafletMap {...{ center }} zoom={13}>
       <TileLayer
         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -48,7 +49,7 @@ const Map: React.FunctionComponent<Props> = ({ photos }) => {
       />
       <PlotPhotos {...{ photos }} />
     </LeafletMap>
-  );
+  ) : null;
 };
 
 export default Map;

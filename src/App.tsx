@@ -62,13 +62,11 @@ const ListingWrapper = styled.div`
 interface State {
   authorized: boolean | null;
   photos: Photo[];
-  showMap: boolean;
 }
 
 const App: React.FunctionComponent = () => {
   const [authorized, setAuthorized] = React.useState<State["authorized"]>(null);
   const [photos, setPhotos] = React.useState<State["photos"]>([]);
-  const [showMap, setShowMap] = React.useState<State["showMap"]>(false);
 
   React.useEffect(() => authorize(), [authorized]);
 
@@ -84,12 +82,10 @@ const App: React.FunctionComponent = () => {
 
   const handlePhotoFetchSuccess = (photos: Photo[]) => {
     setPhotos(photos);
-    setShowMap(true);
   };
 
   const handlePhotoFetchFailure = () => {
     setPhotos([]);
-    setShowMap(false);
   };
 
   return (
@@ -104,7 +100,7 @@ const App: React.FunctionComponent = () => {
           onPhotoFetchSuccess={handlePhotoFetchSuccess}
           onPhotoFetchFailure={handlePhotoFetchFailure}
         />
-        {showMap && <Map {...{ photos }} />}
+        <Map {...{ photos }} />
         {hasItems(photos) && (
           <>
             <h2>Total photos: {photos.length}</h2>
