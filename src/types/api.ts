@@ -11,6 +11,7 @@ export interface Photo {
 
 export interface ImageMediaMetadata {
   location?: ImageLocation;
+  time?: string;
 }
 
 export interface ImageLocation {

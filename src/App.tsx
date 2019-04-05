@@ -7,8 +7,9 @@ import Map from "components/Map";
 import { Photo } from "types/api";
 import LoginButton from "components/LoginButton";
 import Loader from "components/Loading";
-import { Colors } from "styles/Base";
+import { Colors, Spacing } from "styles/Base";
 import Folders from "components/Folders";
+import { avgCountPerWeekDay } from "utils/photos";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -23,6 +24,18 @@ const Header = styled.header`
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: ${Colors.WHITE};
+`;
+
+const Listing = styled.div`
+  display: flex;
+
+  > * {
+    margin: ${Spacing.MICRO} auto;
+  }
+
+  h4 + h4 {
+    margin-left: ${Spacing.MICRO};
+  }
 `;
 
 interface State {
@@ -71,7 +84,18 @@ const App: React.FunctionComponent = () => {
           onPhotoFetchFailure={handlePhotoFetchFailure}
         />
         {showMap && <Map {...{ photos }} />}
-        {complement(isEmpty)(photos) && <h2>Total photos: {photos.length}</h2>}
+        {complement(isEmpty)(photos) && (
+          <>
+            <h2>Total photos: {photos.length}</h2>
+            <h3>Average Photo Count Per Week Day</h3>
+            {avgCountPerWeekDay(photos).map(([day, count], index) => (
+              <Listing key={index}>
+                <h4>{`${day}:`}</h4>
+                <h4>{Math.round(count * 100) / 100}</h4>
+              </Listing>
+            ))}
+          </>
+        )}
       </Header>
     </Wrapper>
   );
