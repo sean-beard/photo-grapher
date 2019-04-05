@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { isNil, complement, isEmpty } from "ramda";
+import { isNil } from "ramda";
 import { VictoryChart, VictoryTheme, VictoryBar } from "victory";
 
 import { authorizeWithGoogle } from "utils/api";
@@ -12,6 +12,7 @@ import { Colors, Spacing } from "styles/Base";
 import Folders from "components/Folders";
 import { avgCountPerWeekDay } from "utils/photos";
 import { getAbbreviatedDay } from "utils/time";
+import { hasItems } from "utils/data-operations";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -104,7 +105,7 @@ const App: React.FunctionComponent = () => {
           onPhotoFetchFailure={handlePhotoFetchFailure}
         />
         {showMap && <Map {...{ photos }} />}
-        {complement(isEmpty)(photos) && (
+        {hasItems(photos) && (
           <>
             <h2>Total photos: {photos.length}</h2>
             <h3>Average Photo Count Per Week Day</h3>
