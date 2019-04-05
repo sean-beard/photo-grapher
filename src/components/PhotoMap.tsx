@@ -17,7 +17,7 @@ const LeafletMap = styled(LMap)`
 `;
 
 interface Props {
-  photos?: Photo[];
+  photos: Photo[];
 }
 
 const PlotPhotos: React.FunctionComponent<Props> = ({ photos }) => (
