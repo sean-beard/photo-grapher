@@ -61,7 +61,7 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
 
   return (
     <>
-      <h2>Total photos: {photos.length}</h2>
+      <h2>{photos.length} total photos</h2>
       <h3>Average Count Per Week Day</h3>
       <AverageCountWrapper>
         <div>
