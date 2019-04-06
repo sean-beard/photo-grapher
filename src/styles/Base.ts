@@ -12,3 +12,9 @@ export enum Spacing {
   LARGE = "2.5",
   XLARGE = "4rem"
 }
+
+export enum Breakpoints {
+  DESKTOP = "max-width: 70em",
+  TABLET = "max-width: 48em",
+  MOBILE = "max-width: 37.5em"
+}

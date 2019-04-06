@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { VictoryChart, VictoryTheme, VictoryBar } from "victory";
 
 import { Photo } from "types/api";
-import { Colors, Spacing } from "styles/Base";
+import { Colors, Spacing, Breakpoints } from "styles/Base";
 import { avgCountPerWeekDay } from "utils/photos";
 import { getAbbreviatedDay } from "utils/time";
 import { hasItems } from "utils/data-operations";
@@ -12,11 +12,17 @@ const Listing = styled.div`
   display: flex;
 
   > * {
-    margin: ${Spacing.MICRO} 0 ${Spacing.MICRO} ${Spacing.MEDIUM};
+    margin: ${Spacing.NORMAL} 0 ${Spacing.NORMAL} ${Spacing.MEDIUM};
   }
 
   h4 + h4 {
     margin-left: ${Spacing.MICRO};
+  }
+
+  @media (${Breakpoints.TABLET}) {
+    > * {
+      margin: ${Spacing.MICRO} 0 ${Spacing.MICRO} ${Spacing.MEDIUM};
+    }
   }
 `;
 
@@ -29,6 +35,10 @@ const AverageCountWrapper = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
+  }
+
+  @media (${Breakpoints.MOBILE}) {
+    flex-direction: column;
   }
 `;
 
