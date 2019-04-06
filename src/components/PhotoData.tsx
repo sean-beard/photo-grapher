@@ -1,6 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
-import { VictoryChart, VictoryTheme, VictoryBar } from "victory";
+import {
+  VictoryChart,
+  VictoryTheme,
+  VictoryBar,
+  VictoryPie,
+  VictoryLabel
+} from "victory";
+import { filter } from "ramda";
 
 import { Photo } from "types/api";
 import { Colors, Spacing, Breakpoints } from "styles/Base";
@@ -26,7 +33,7 @@ const Listing = styled.div`
   }
 `;
 
-const AverageCountWrapper = styled.div`
+const AvarageCountBarChart = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -48,6 +55,14 @@ const ListingWrapper = styled.div`
   align-items: flex-start;
 `;
 
+const AverageCountPieChart = styled.div`
+  width: 50%;
+
+  @media (${Breakpoints.MOBILE}) {
+    width: 100%;
+  }
+`;
+
 interface Props {
   photos: Photo[];
 }
@@ -58,12 +73,16 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
   }
 
   const avgNumPhotosPerDay = avgCountPerWeekDay(photos);
+  const avgPerDayGraphData = avgNumPhotosPerDay.map(([day, count]) => ({
+    x: getAbbreviatedDay(day),
+    y: Math.round(count * 100) / 100
+  }));
 
   return (
     <>
       <h2>{photos.length} total photos</h2>
       <h3>Average Count Per Week Day</h3>
-      <AverageCountWrapper>
+      <AvarageCountBarChart>
         <div>
           <ListingWrapper>
             {avgNumPhotosPerDay.map(([day, count], index) => (
@@ -77,13 +96,20 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
         <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
           <VictoryBar
             style={{ data: { fill: Colors.ACTION_BLUE } }}
-            data={avgNumPhotosPerDay.map(([day, count]) => ({
-              x: getAbbreviatedDay(day),
-              y: Math.round(count * 100) / 100
-            }))}
+            data={avgPerDayGraphData}
           />
         </VictoryChart>
-      </AverageCountWrapper>
+      </AvarageCountBarChart>
+      <AverageCountPieChart>
+        <VictoryPie
+          data={filter(dataPoint => dataPoint.y !== 0, avgPerDayGraphData)}
+          labelComponent={
+            <VictoryLabel
+              style={{ fill: Colors.ACTION_BLUE, stroke: Colors.ACTION_BLUE }}
+            />
+          }
+        />
+      </AverageCountPieChart>
     </>
   );
 };
