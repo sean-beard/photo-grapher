@@ -43,10 +43,7 @@ const PhotoMap: React.FunctionComponent<Props> = ({ photos }) => {
   const center: Location = [42.151197, -73.038651];
   return hasItems(photos) ? (
     <LeafletMap {...{ center }} zoom={13}>
-      <TileLayer
-        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <PlotPhotos {...{ photos }} />
     </LeafletMap>
   ) : null;
