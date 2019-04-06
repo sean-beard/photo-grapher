@@ -77,6 +77,10 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
     x: getAbbreviatedDay(day),
     y: Math.round(count * 100) / 100
   }));
+  const avgPerDayPieChartData = filter(
+    dataPoint => dataPoint.y !== 0,
+    avgPerDayGraphData
+  );
 
   return (
     <>
@@ -100,16 +104,18 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
           />
         </VictoryChart>
       </AvarageCountBarChart>
-      <AverageCountPieChart>
-        <VictoryPie
-          data={filter(dataPoint => dataPoint.y !== 0, avgPerDayGraphData)}
-          labelComponent={
-            <VictoryLabel
-              style={{ fill: Colors.ACTION_BLUE, stroke: Colors.ACTION_BLUE }}
-            />
-          }
-        />
-      </AverageCountPieChart>
+      {avgPerDayPieChartData.length > 1 && (
+        <AverageCountPieChart>
+          <VictoryPie
+            data={avgPerDayPieChartData}
+            labelComponent={
+              <VictoryLabel
+                style={{ fill: Colors.ACTION_BLUE, stroke: Colors.ACTION_BLUE }}
+              />
+            }
+          />
+        </AverageCountPieChart>
+      )}
     </>
   );
 };
