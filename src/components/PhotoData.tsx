@@ -11,7 +11,7 @@ import { filter } from "ramda";
 
 import { Photo } from "types/api";
 import { Colors, Spacing, Breakpoints } from "styles/Base";
-import { avgCountPerWeekDay } from "utils/photos";
+import { avgCountPerWeekDay, countPerHour } from "utils/photos";
 import { getAbbreviatedDay } from "utils/time";
 import { hasItems } from "utils/data-operations";
 
@@ -55,10 +55,10 @@ const ListingWrapper = styled.div`
   align-items: flex-start;
 `;
 
-const AverageCountPieChart = styled.div`
+const FullRowChart = styled.div`
   width: 50%;
 
-  @media (${Breakpoints.MOBILE}) {
+  @media (${Breakpoints.TABLET}) {
     width: 100%;
   }
 `;
@@ -81,6 +81,12 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
     dataPoint => dataPoint.y !== 0,
     avgPerDayGraphData
   );
+  const countPerHourGraphData = countPerHour(photos)
+    .map(({ hour, count }) => ({
+      x: hour,
+      y: count
+    }))
+    .reverse();
 
   return (
     <>
@@ -105,7 +111,7 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
         </VictoryChart>
       </AvarageCountBarChart>
       {avgPerDayPieChartData.length > 1 && (
-        <AverageCountPieChart>
+        <FullRowChart>
           <VictoryPie
             data={avgPerDayPieChartData}
             labelComponent={
@@ -114,8 +120,22 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
               />
             }
           />
-        </AverageCountPieChart>
+        </FullRowChart>
       )}
+      <h3>Count Per Hour</h3>
+      <FullRowChart>
+        <VictoryChart
+          theme={VictoryTheme.material}
+          domainPadding={5}
+          padding={{ top: 0, bottom: 30, left: 50, right: 20 }}
+        >
+          <VictoryBar
+            style={{ data: { fill: Colors.ACTION_BLUE } }}
+            data={countPerHourGraphData}
+            horizontal={true}
+          />
+        </VictoryChart>
+      </FullRowChart>
     </>
   );
 };

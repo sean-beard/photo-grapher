@@ -101,3 +101,6 @@ export const getAbbreviatedDay = (dayOfTheWeek: DayOfTheWeek) => {
       return null;
   }
 };
+
+export const getHoursFromDates = (dates: Date[]) =>
+  dates.map(date => date.getHours());
