@@ -7,7 +7,7 @@ import PhotoMap from "components/PhotoMap";
 import { Photo } from "types/api";
 import LoginButton from "components/LoginButton";
 import Loader from "components/Loading";
-import { Colors, Spacing } from "styles/Base";
+import { Colors } from "styles/Base";
 import Folders from "components/Folders";
 import PhotoData from "components/PhotoData";
 
@@ -24,18 +24,6 @@ const Header = styled.header`
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: ${Colors.WHITE};
-`;
-
-const Listing = styled.div`
-  display: flex;
-
-  > * {
-    margin: ${Spacing.MICRO} 0 ${Spacing.MICRO} ${Spacing.MEDIUM};
-  }
-
-  h4 + h4 {
-    margin-left: ${Spacing.MICRO};
-  }
 `;
 
 interface State {
