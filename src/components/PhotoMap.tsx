@@ -8,6 +8,8 @@ import { Photo } from "types/api";
 import ImagePopup from "components/ImagePopup";
 import { Spacing } from "styles/Base";
 import { hasItems } from "utils/data-operations";
+import { getLatLongCenter } from "utils/map";
+import { getLocations } from "utils/photos";
 
 const LeafletMap = styled(LMap)`
   height: 325px;
@@ -39,10 +41,10 @@ const PlotPhotos: React.FunctionComponent<Props> = ({ photos }) => (
 );
 
 const PhotoMap: React.FunctionComponent<Props> = ({ photos }) => {
-  // TODO: dynamic center location
-  const center: Location = [42.151197, -73.038651];
+  // TODO: dynamic zoom value
+  const center = getLatLongCenter(getLocations(photos));
   return hasItems(photos) ? (
-    <LeafletMap {...{ center }} zoom={13}>
+    <LeafletMap {...{ center }} zoom={8}>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <PlotPhotos {...{ photos }} />
     </LeafletMap>

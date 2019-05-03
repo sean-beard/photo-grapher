@@ -9,6 +9,7 @@ import {
 } from "./time";
 import { DayOfTheWeek } from "types/time";
 import { format } from "date-fns";
+import { Location } from "types/map";
 
 export const getPhotosWithLocation = (photos: Photo[]) =>
   filter(
@@ -48,3 +49,13 @@ export const countPerHour = (photos: Photo[]) => {
     count
   }));
 };
+
+export const getLocations = (photos: Photo[]): Location[] =>
+  photos
+    .filter(({ imageMediaMetadata: { location } }) => {
+      return location && location.latitude && location.longitude;
+    })
+    .map(
+      ({ imageMediaMetadata: { location } }) =>
+        [location!.latitude!, location!.longitude!] as Location
+    );
