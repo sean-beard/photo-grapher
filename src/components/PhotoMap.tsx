@@ -1,9 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Map as LMap, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map as LMap, TileLayer, Marker } from "react-leaflet";
 import { path } from "ramda";
 
-import { Location } from "types/map";
 import { Photo } from "types/api";
 import ImagePopup from "components/ImagePopup";
 import { Spacing } from "styles/Base";
