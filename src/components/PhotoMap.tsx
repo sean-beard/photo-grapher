@@ -2,11 +2,12 @@ import * as React from "react";
 import styled from "styled-components";
 import { Map as LMap, TileLayer, Marker } from "react-leaflet";
 import { path, isEmpty } from "ramda";
+import { FitBoundsOptions } from "leaflet";
 
 import { Photo } from "types/api";
 import ImagePopup from "components/ImagePopup";
 import { Spacing } from "styles/Base";
-import { getLatLongCenter } from "utils/map";
+import { getBounds } from "utils/map";
 import { getLocations } from "utils/photos";
 
 const LeafletMap = styled(LMap)`
@@ -43,10 +44,11 @@ const PhotoMap: React.FunctionComponent<Props> = ({ photos }) => {
     return null;
   }
 
-  // TODO: dynamic zoom value
-  const center = getLatLongCenter(getLocations(photos));
+  const bounds = getBounds(getLocations(photos));
+  const boundsOptions: FitBoundsOptions = { padding: [25, 25] };
+
   return (
-    <LeafletMap {...{ center }} zoom={8}>
+    <LeafletMap {...{ bounds, boundsOptions }}>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <PlotPhotos {...{ photos }} />
     </LeafletMap>
