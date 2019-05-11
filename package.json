@@ -6,7 +6,8 @@
     "start": "PORT=8000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "serve": "yarn build && serve -s build"
   },
   "dependencies": {
     "date-fns": "^1.30.1",
