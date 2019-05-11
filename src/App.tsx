@@ -58,10 +58,7 @@ const App: React.FunctionComponent = () => {
   return (
     <Wrapper>
       <Header>
-        {isNil(authorized) && <Loader />}
-        {authorized === false && (
-          <LoginButton onLoginSuccess={handleAuthSuccess} />
-        )}
+        {!authorized && <LoginButton onLoginSuccess={handleAuthSuccess} />}
         <Folders
           authorized={!!authorized}
           onPhotoFetchSuccess={handlePhotoFetchSuccess}
