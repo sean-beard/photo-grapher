@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { VictoryBar, VictoryPie, VictoryLabel } from "victory";
+import { VictoryBar, VictoryLabel } from "victory";
 import { filter } from "ramda";
 
 import { Photo } from "types/api";
@@ -8,7 +8,7 @@ import { Colors, Spacing, Breakpoints } from "styles/Base";
 import { avgCountPerWeekDay, countPerHour } from "utils/photos";
 import { getAbbreviatedDay } from "utils/time";
 import { hasItems } from "utils/data-operations";
-import { ScrollableChart } from "./Scrollable";
+import { ScrollableChart, ScrollablePie } from "./Scrollable";
 
 const Listing = styled.div`
   display: flex;
@@ -107,7 +107,7 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
       </AvarageCountBarChart>
       {avgPerDayPieChartData.length > 1 && (
         <FullRowChart>
-          <VictoryPie
+          <ScrollablePie
             data={avgPerDayPieChartData}
             labelComponent={
               <VictoryLabel
