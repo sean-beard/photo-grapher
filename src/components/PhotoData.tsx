@@ -1,12 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import {
-  VictoryChart,
-  VictoryTheme,
-  VictoryBar,
-  VictoryPie,
-  VictoryLabel
-} from "victory";
+import { VictoryBar, VictoryPie, VictoryLabel } from "victory";
 import { filter } from "ramda";
 
 import { Photo } from "types/api";
@@ -14,6 +8,7 @@ import { Colors, Spacing, Breakpoints } from "styles/Base";
 import { avgCountPerWeekDay, countPerHour } from "utils/photos";
 import { getAbbreviatedDay } from "utils/time";
 import { hasItems } from "utils/data-operations";
+import { ScrollableChart } from "./Scrollable";
 
 const Listing = styled.div`
   display: flex;
@@ -103,12 +98,12 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
             ))}
           </ListingWrapper>
         </div>
-        <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
+        <ScrollableChart domainPadding={10}>
           <VictoryBar
             style={{ data: { fill: Colors.ACTION_BLUE } }}
             data={avgPerDayGraphData}
           />
-        </VictoryChart>
+        </ScrollableChart>
       </AvarageCountBarChart>
       {avgPerDayPieChartData.length > 1 && (
         <FullRowChart>
@@ -124,8 +119,7 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
       )}
       <h3>Count Per Hour</h3>
       <FullRowChart>
-        <VictoryChart
-          theme={VictoryTheme.material}
+        <ScrollableChart
           domainPadding={5}
           padding={{ top: 0, bottom: 30, left: 50, right: 20 }}
         >
@@ -134,7 +128,7 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
             data={countPerHourGraphData}
             horizontal={true}
           />
-        </VictoryChart>
+        </ScrollableChart>
       </FullRowChart>
     </>
   );
