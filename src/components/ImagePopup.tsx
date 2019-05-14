@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import Modal from "components/Modal";
 import Loader from "components/Loading";
-import { Spacing, Colors } from "styles/Base";
+import { Spacing, Colors, Breakpoints } from "styles/Base";
 
 const ViewButtonWrapper = styled.div`
   display: flex;
@@ -21,6 +21,10 @@ const ViewButton = styled.button`
 const Photo = styled.img`
   max-width: 50vw;
   width: 100%;
+
+  @media (${Breakpoints.MOBILE}) {
+    max-width: 85vw;
+  }
 `;
 
 const LoaderWrapper = styled.div`
