@@ -4,6 +4,7 @@
 This app is used for plotting and visualizing photo location data using Google Drive as a the photo data repository.
 
 https://photo-grapher.netlify.com/
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/8b95cd9f-b264-4801-9d30-98e30a11ea62/deploy-status)](https://app.netlify.com/sites/photo-grapher/deploys)
 
 ## Getting started
