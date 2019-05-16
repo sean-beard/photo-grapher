@@ -4,7 +4,7 @@ import ProgressiveImage from "react-progressive-image";
 import styled from "styled-components";
 
 import Modal from "components/Modal";
-import Loader from "components/Loading";
+import Loader, { LoaderWrapper } from "components/Loading";
 import { Spacing, Colors, Breakpoints } from "styles/Base";
 
 const ViewButtonWrapper = styled.div`
@@ -25,16 +25,6 @@ const Photo = styled.img`
   @media (${Breakpoints.MOBILE}) {
     max-width: 85vw;
   }
-`;
-
-const LoaderWrapper = styled.div`
-  align-items: center;
-  background-color: ${Colors.BASE_BLUE};
-  display: flex;
-  height: 150px;
-  justify-content: center;
-  margin: 0 auto;
-  width: 50vw;
 `;
 
 interface Props {

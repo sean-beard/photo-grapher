@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import { isNil } from "ramda";
 
 import { getPhotosWithLocation } from "utils/photos";
 import {
@@ -8,14 +8,11 @@ import {
 } from "utils/api";
 import FolderList from "./FolderList";
 import { Photo, Folder } from "../../types/api";
-import Loader from "../Loading";
-
-const LoaderWrapper = styled.div`
-  margin-bottom: 2.5rem;
-`;
+import { ModalLoader } from "components/Loading";
+import { AppState } from "App";
 
 interface Props {
-  authorized: boolean;
+  authorized: AppState["authorized"];
   onPhotoFetchSuccess: (photos: Photo[]) => void;
   onPhotoFetchFailure: () => void;
 }
@@ -33,7 +30,7 @@ const Folders: React.FunctionComponent<Props> = ({
   onPhotoFetchSuccess,
   onPhotoFetchFailure
 }) => {
-  if (!authorized) {
+  if (authorized === false) {
     return null;
   }
 
@@ -111,11 +108,9 @@ const Folders: React.FunctionComponent<Props> = ({
         <h2>Whoops... Couldn't find any photos with location data.</h2>
       )}
       <FolderList {...{ folders }} onSelection={handleFolderSelection} />
-      {(loadingFolders || loadingPhotos) && (
-        <LoaderWrapper>
-          <Loader />
-        </LoaderWrapper>
-      )}
+      <ModalLoader
+        isLoading={isNil(authorized) || loadingFolders || loadingPhotos}
+      />
     </>
   );
 };

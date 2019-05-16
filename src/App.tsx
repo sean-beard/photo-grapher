@@ -1,12 +1,10 @@
 import * as React from "react";
 import styled from "styled-components";
-import { isNil } from "ramda";
 
 import { authorizeWithGoogle } from "utils/api";
 import PhotoMap from "components/PhotoMap";
 import { Photo } from "types/api";
 import LoginButton from "components/LoginButton";
-import Loader from "components/Loading";
 import { Colors } from "styles/Base";
 import Folders from "components/Folders";
 import PhotoData from "components/PhotoData";
@@ -26,14 +24,16 @@ const Header = styled.header`
   color: ${Colors.WHITE};
 `;
 
-interface State {
+export interface AppState {
   authorized: boolean | null;
   photos: Photo[];
 }
 
 const App: React.FunctionComponent = () => {
-  const [authorized, setAuthorized] = React.useState<State["authorized"]>(null);
-  const [photos, setPhotos] = React.useState<State["photos"]>([]);
+  const [authorized, setAuthorized] = React.useState<AppState["authorized"]>(
+    null
+  );
+  const [photos, setPhotos] = React.useState<AppState["photos"]>([]);
 
   React.useEffect(() => authorize(), [authorized]);
 
@@ -58,12 +58,11 @@ const App: React.FunctionComponent = () => {
   return (
     <Wrapper>
       <Header>
-        {isNil(authorized) && <Loader />}
         {authorized === false && (
           <LoginButton onLoginSuccess={handleAuthSuccess} />
         )}
         <Folders
-          authorized={!!authorized}
+          {...{ authorized }}
           onPhotoFetchSuccess={handlePhotoFetchSuccess}
           onPhotoFetchFailure={handlePhotoFetchFailure}
         />
