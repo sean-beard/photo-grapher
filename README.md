@@ -7,6 +7,9 @@ https://photo-grapher.netlify.com/
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/8b95cd9f-b264-4801-9d30-98e30a11ea62/deploy-status)](https://app.netlify.com/sites/photo-grapher/deploys)
 
+<img src="https://user-images.githubusercontent.com/8262156/57884879-b17e9080-77f7-11e9-9cac-dd4b43833307.png" alt="browserstack" width="100"> | Tested with [BrowserStack](https://www.browserstack.com/) 
+--- | ---
+
 ## Getting started
 Start the development server
 ```shell
