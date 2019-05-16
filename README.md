@@ -10,13 +10,6 @@ https://photo-grapher.netlify.com/
 <img src="https://user-images.githubusercontent.com/8262156/57884879-b17e9080-77f7-11e9-9cac-dd4b43833307.png" alt="browserstack" width="100"> | Tested with [BrowserStack](https://www.browserstack.com/) 
 --- | ---
 
-## Getting started
-Start the development server
-```shell
-yarn start
-```
-Navigate to [http://localhost:8000/](http://localhost:8000/)
-
 ## Developing
 ### Built With
 React 📦 TypeScript 📦 Ramda 📦 Styled Components 📦 Leaflet
@@ -51,10 +44,14 @@ or for Windows
 ```script
 copy .env.sample .env
 ```
-Add your Client ID and Client Secret found in the Google Developer Console and restart the development server.
-```script
+Update `.env` with your Client ID and Client Secret found in the Google Developer Console.
+
+## Getting Started
+Start the development server
+```shell
 yarn start
 ```
+Navigate to [http://localhost:8000/](http://localhost:8000/)
 
 ## API Reference
 
