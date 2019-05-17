@@ -1,4 +1,4 @@
-/// <reference path="../../node_modules/@types/gapi/index.d.ts" />
+/// <reference path="../../node_modules/@types/gapi.auth2/index.d.ts" />
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID as string;
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET as string;
@@ -36,13 +36,14 @@ export const authorizeWithGoogle = (
  * @param callback A function in the global namespace,
  * which is called when the sign-in button is rendered and also called after a sign-in flow completes.
  */
-export const googleLogin = (callback: () => void) =>
-  gapi.auth.signIn({
-    clientid: CLIENT_ID,
+export const googleLogin = (callback: () => void) => {
+  const googleAuth = gapi.auth2.init({
+    client_id: CLIENT_ID,
     scope: SCOPES.join(" "),
-    cookiepolicy: "single_host_origin",
-    callback
+    cookie_policy: "single_host_origin"
   });
+  googleAuth.signIn().then(() => callback());
+};
 
 /**
  * Fetches root level Google Drive folders
