@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { isNil } from "ramda";
 
 import { authorizeWithGoogle } from "utils/api";
 import PhotoMap from "components/PhotoMap";
@@ -8,20 +9,23 @@ import LoginButton from "components/LoginButton";
 import { Colors } from "styles/Base";
 import Folders from "components/Folders";
 import PhotoData from "components/PhotoData";
+import Navigation from "components/Navigation";
 
 const Wrapper = styled.div`
-  text-align: center;
-`;
-
-const Header = styled.header`
   background-color: ${Colors.BASE_BLUE};
   min-height: 100vh;
+  width: 100%;
+  color: ${Colors.WHITE};
+  font-size: calc(10px + 2vmin);
+`;
+
+const Body = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: ${Colors.WHITE};
+  align-items: center;
+  width: 100%;
+  text-align: center;
 `;
 
 export interface AppState {
@@ -35,7 +39,11 @@ const App: React.FunctionComponent = () => {
   );
   const [photos, setPhotos] = React.useState<AppState["photos"]>([]);
 
-  React.useEffect(() => authorize(), [authorized]);
+  React.useEffect(() => {
+    if (isNil(authorized)) {
+      authorize();
+    }
+  }, [authorized]);
 
   const authorize = () =>
     authorizeWithGoogle(handleAuthSuccess, handleAuthError);
@@ -57,7 +65,8 @@ const App: React.FunctionComponent = () => {
 
   return (
     <Wrapper>
-      <Header>
+      <Navigation {...{ authorized }} onLogout={() => setAuthorized(false)} />
+      <Body>
         {authorized === false && (
           <LoginButton onLoginSuccess={handleAuthSuccess} />
         )}
@@ -66,9 +75,13 @@ const App: React.FunctionComponent = () => {
           onPhotoFetchSuccess={handlePhotoFetchSuccess}
           onPhotoFetchFailure={handlePhotoFetchFailure}
         />
-        <PhotoMap {...{ photos }} />
-        <PhotoData {...{ photos }} />
-      </Header>
+        {authorized && (
+          <>
+            <PhotoMap {...{ photos }} />
+            <PhotoData {...{ photos }} />
+          </>
+        )}
+      </Body>
     </Wrapper>
   );
 };

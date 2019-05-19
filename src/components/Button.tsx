@@ -10,3 +10,18 @@ export const Button = styled.button`
   border-radius: 3px;
   background-color: ${Colors.ACTION_BLUE};
 `;
+
+export const ButtonLink = styled.button`
+  background: none;
+  border: none;
+  color: ${Colors.WHITE};
+  cursor: pointer;
+  font-size: ${Spacing.NORMAL};
+  text-decoration: underline;
+  transition: all 250ms ease;
+
+  &:hover {
+    color: ${Colors.ACTION_BLUE};
+    text-decoration: none;
+  }
+`;
