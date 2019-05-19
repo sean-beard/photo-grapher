@@ -7,6 +7,7 @@ const SCOPES = [
   "https://www.googleapis.com/auth/drive.photos.readonly"
 ];
 export const URL_PREFIX = `https://www.googleapis.com/drive/v3/files??key=${CLIENT_SECRET}`;
+let GoogleAuth: gapi.auth2.GoogleAuth | undefined;
 
 /**
  * @param onSuccess Auth success callback
@@ -37,12 +38,22 @@ export const authorizeWithGoogle = (
  * which is called when the sign-in button is rendered and also called after a sign-in flow completes.
  */
 export const googleLogin = (callback: () => void) => {
-  const googleAuth = gapi.auth2.init({
+  GoogleAuth = gapi.auth2.init({
     client_id: CLIENT_ID,
     scope: SCOPES.join(" "),
     cookie_policy: "single_host_origin"
   });
-  googleAuth.signIn().then(() => callback());
+  GoogleAuth.signIn().then(() => callback());
+};
+
+/**
+ * Sign out of the currently logged in Google Account
+ */
+export const googleLogout = (callback: () => void) => {
+  if (GoogleAuth) {
+    GoogleAuth.disconnect();
+  }
+  callback();
 };
 
 /**
