@@ -37,6 +37,15 @@ interface State {
 
 const ImagePopup: React.FunctionComponent<Props> = ({ photoId }) => {
   const [showModal, setShowModal] = React.useState<State["showModal"]>(false);
+
+  React.useEffect(() => {
+    if (showModal) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+  });
+
   return (
     <>
       <Popup>
