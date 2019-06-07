@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-  VictoryChart,
-  VictoryTheme,
-  VictoryChartProps,
-  VictoryPie,
-  VictoryPieProps
-} from "victory";
+import { VictoryChart, VictoryTheme, VictoryChartProps } from "victory";
 
 const Scrollable: React.FC = ({ children }) => (
   <div style={{ width: "100%" }}>
@@ -29,14 +23,5 @@ export const ScrollableChart: React.FC<VictoryChartProps> = ({
     <VictoryChart theme={VictoryTheme.material} standalone={false} {...props}>
       {children}
     </VictoryChart>
-  </Scrollable>
-);
-
-export const ScrollablePie: React.FC<VictoryPieProps> = ({
-  children,
-  ...props
-}) => (
-  <Scrollable>
-    <VictoryPie standalone={false} {...props} />
   </Scrollable>
 );

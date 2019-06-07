@@ -1,14 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
-import { VictoryBar, VictoryLabel } from "victory";
-import { filter } from "ramda";
+import { VictoryBar } from "victory";
 
 import { Photo } from "types/api";
 import { Colors, Spacing, Breakpoints } from "styles/Base";
 import { avgCountPerWeekDay, countPerHour } from "utils/photos";
 import { getAbbreviatedDay } from "utils/time";
 import { hasItems } from "utils/data-operations";
-import { ScrollableChart, ScrollablePie } from "./Scrollable";
+import { ScrollableChart } from "./Scrollable";
 
 const Listing = styled.div`
   display: flex;
@@ -72,10 +71,6 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
     x: getAbbreviatedDay(day),
     y: Math.round(count * 100) / 100
   }));
-  const avgPerDayPieChartData = filter(
-    dataPoint => dataPoint.y !== 0,
-    avgPerDayGraphData
-  );
   const countPerHourGraphData = countPerHour(photos)
     .map(({ hour, count }) => ({
       x: hour,
@@ -105,18 +100,6 @@ const PhotoData: React.FC<Props> = ({ photos }) => {
           />
         </ScrollableChart>
       </AvarageCountBarChart>
-      {avgPerDayPieChartData.length > 1 && (
-        <FullRowChart>
-          <ScrollablePie
-            data={avgPerDayPieChartData}
-            labelComponent={
-              <VictoryLabel
-                style={{ fill: Colors.ACTION_BLUE, stroke: Colors.ACTION_BLUE }}
-              />
-            }
-          />
-        </FullRowChart>
-      )}
       <h3>Count Per Hour</h3>
       <FullRowChart>
         <ScrollableChart
