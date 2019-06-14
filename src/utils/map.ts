@@ -1,31 +1,21 @@
+import { pluck } from "ramda";
+
 import { Location } from "types/map";
 
-export const getBounds = (locationsInDegrees: Location[]) => {
-  const numberOfCoordinates = locationsInDegrees.length;
-  const LAT_INDEX = 0;
-  const LONG_INDEX = 1;
+const maxReducer = (acc: number | null, next: number) =>
+  acc ? (next > acc ? next : acc) : next;
 
-  let maxLat: number | null = null;
-  let minLat: number | null = null;
-  let maxLong: number | null = null;
-  let minLong: number | null = null;
+const minReducer = (acc: number | null, next: number) =>
+  acc ? (next < acc ? next : acc) : next;
 
-  for (let i = 0; i < numberOfCoordinates; i++) {
-    const lat = locationsInDegrees[i][LAT_INDEX];
-    const long = locationsInDegrees[i][LONG_INDEX];
-    if (!maxLat || lat > maxLat) {
-      maxLat = lat;
-    }
-    if (!minLat || lat < minLat) {
-      minLat = lat;
-    }
-    if (!maxLong || long > maxLong) {
-      maxLong = long;
-    }
-    if (!minLong || long < minLong) {
-      minLong = long;
-    }
-  }
+export const getBounds = (locations: Location[]) => {
+  const latitudes = pluck(0, locations);
+  const longitudes = pluck(1, locations);
+
+  const maxLat = latitudes.reduce(maxReducer, 0);
+  const minLat = latitudes.reduce(minReducer, 0);
+  const maxLong = longitudes.reduce(maxReducer, 0);
+  const minLong = longitudes.reduce(minReducer, 0);
 
   if (maxLat && minLat && maxLong && minLong) {
     const topLeftCorner: Location = [minLat, maxLong];
