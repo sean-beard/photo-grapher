@@ -55,14 +55,6 @@ const App: React.FunctionComponent = () => {
     setAuthorized(false);
   };
 
-  const handlePhotoFetchSuccess = (photos: Photo[]) => {
-    setPhotos(photos);
-  };
-
-  const handlePhotoFetchFailure = () => {
-    setPhotos([]);
-  };
-
   return (
     <Wrapper>
       <Navigation {...{ authorized }} onLogout={() => setAuthorized(false)} />
@@ -72,8 +64,8 @@ const App: React.FunctionComponent = () => {
         )}
         <Folders
           {...{ authorized }}
-          onPhotoFetchSuccess={handlePhotoFetchSuccess}
-          onPhotoFetchFailure={handlePhotoFetchFailure}
+          onPhotoFetchSuccess={(photos: Photo[]) => setPhotos(photos)}
+          onPhotoFetchFailure={() => setPhotos([])}
         />
         {authorized && (
           <>
