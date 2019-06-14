@@ -19,11 +19,8 @@ export const getPhotosWithLocation = (photos: Photo[]) =>
 
 export const getDatesFromPhotos = (photos: Photo[]) =>
   photos
-    .map(photo => {
-      const time = photo.imageMediaMetadata.time;
-      return time ? exifDateTimeToDate(time) : null;
-    })
-    .filter(date => !!date) as Date[];
+    .filter(({ imageMediaMetadata: { time } }) => !!time)
+    .map(({ imageMediaMetadata: { time } }) => exifDateTimeToDate(time!));
 
 export const avgCountPerWeekDay = (photos: Photo[]) => {
   const dates = getDatesFromPhotos(photos);
