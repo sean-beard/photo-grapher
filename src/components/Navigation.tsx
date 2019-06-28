@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import { AppState } from "App";
 import { Spacing } from "styles/Base";
 import LogoutButtonLink from "./LogoutButtonLink";
+import { Authorized } from "types/store";
 
 const Nav = styled.header`
   display: flex;
@@ -13,7 +13,7 @@ const Nav = styled.header`
 `;
 
 interface Props {
-  authorized: AppState["authorized"];
+  authorized: Authorized["authorized"];
   onLogout: () => void;
 }
 

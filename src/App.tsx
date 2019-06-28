@@ -8,6 +8,7 @@ import LoginButton from "components/LoginButton";
 import { Colors } from "styles/Base";
 import Navigation from "components/Navigation";
 import Home from "components/Home";
+import { AuthContext } from "store";
 
 const Wrapper = styled.div`
   background-color: ${Colors.BASE_BLUE};
@@ -26,14 +27,8 @@ const Body = styled.div`
   text-align: center;
 `;
 
-export interface AppState {
-  authorized: boolean | null;
-}
-
 const App: React.FunctionComponent = () => {
-  const [authorized, setAuthorized] = React.useState<AppState["authorized"]>(
-    null
-  );
+  const { authorized, setAuthorized } = React.useContext(AuthContext);
 
   React.useEffect(() => {
     if (isNil(authorized)) {

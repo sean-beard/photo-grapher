@@ -4,10 +4,10 @@ import PhotoMap from "components/PhotoMap";
 import { Photo } from "types/api";
 import Folders from "components/Folders";
 import PhotoData from "components/PhotoData";
-import { AppState } from "App";
+import { Authorized } from "types/store";
 
 interface Props {
-  authorized: AppState["authorized"];
+  authorized: Authorized["authorized"];
 }
 
 const Home: React.FC<Props> = ({ authorized }) => {

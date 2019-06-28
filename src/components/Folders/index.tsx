@@ -9,10 +9,10 @@ import {
 import FolderList from "./FolderList";
 import { Photo, Folder } from "../../types/api";
 import { ModalLoader } from "components/Loading";
-import { AppState } from "App";
+import { Authorized } from "types/store";
 
 interface Props {
-  authorized: AppState["authorized"];
+  authorized: Authorized["authorized"];
   onPhotoFetchSuccess: (photos: Photo[]) => void;
   onPhotoFetchFailure: () => void;
 }
