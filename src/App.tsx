@@ -3,13 +3,10 @@ import styled from "styled-components";
 import { isNil } from "ramda";
 
 import { authorizeWithGoogle } from "utils/api";
-import PhotoMap from "components/PhotoMap";
-import { Photo } from "types/api";
 import LoginButton from "components/LoginButton";
 import { Colors } from "styles/Base";
-import Folders from "components/Folders";
-import PhotoData from "components/PhotoData";
 import Navigation from "components/Navigation";
+import Home from "components/Home";
 
 const Wrapper = styled.div`
   background-color: ${Colors.BASE_BLUE};
@@ -30,14 +27,12 @@ const Body = styled.div`
 
 export interface AppState {
   authorized: boolean | null;
-  photos: Photo[];
 }
 
 const App: React.FunctionComponent = () => {
   const [authorized, setAuthorized] = React.useState<AppState["authorized"]>(
     null
   );
-  const [photos, setPhotos] = React.useState<AppState["photos"]>([]);
 
   React.useEffect(() => {
     if (isNil(authorized)) {
@@ -62,17 +57,7 @@ const App: React.FunctionComponent = () => {
         {authorized === false && (
           <LoginButton onLoginSuccess={handleAuthSuccess} />
         )}
-        <Folders
-          {...{ authorized }}
-          onPhotoFetchSuccess={(photos: Photo[]) => setPhotos(photos)}
-          onPhotoFetchFailure={() => setPhotos([])}
-        />
-        {authorized && (
-          <>
-            <PhotoMap {...{ photos }} />
-            <PhotoData {...{ photos }} />
-          </>
-        )}
+        <Home {...{ authorized }} />
       </Body>
     </Wrapper>
   );
