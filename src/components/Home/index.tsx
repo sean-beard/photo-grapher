@@ -13,7 +13,6 @@ const Home: React.FC = () => {
   return (
     <>
       <Folders
-        {...{ authorized }}
         onPhotoFetchSuccess={(photos: Photo[]) => setPhotos(photos)}
         onPhotoFetchFailure={() => setPhotos([])}
       />
