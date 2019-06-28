@@ -48,7 +48,7 @@ const App: React.FunctionComponent = () => {
 
   return (
     <Wrapper>
-      <Navigation {...{ authorized }} onLogout={() => setAuthorized(false)} />
+      <Navigation onLogout={() => setAuthorized(false)} />
       <Body>
         {authorized === false && (
           <LoginButton onLoginSuccess={handleAuthSuccess} />
