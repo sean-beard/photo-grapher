@@ -9,10 +9,9 @@ import {
 import FolderList from "./FolderList";
 import { Photo, Folder } from "../../types/api";
 import { ModalLoader } from "components/Loading";
-import { AppState } from "App";
+import { AuthContext } from "store";
 
 interface Props {
-  authorized: AppState["authorized"];
   onPhotoFetchSuccess: (photos: Photo[]) => void;
   onPhotoFetchFailure: () => void;
 }
@@ -26,10 +25,10 @@ interface State {
 }
 
 const Folders: React.FunctionComponent<Props> = ({
-  authorized,
   onPhotoFetchSuccess,
   onPhotoFetchFailure
 }) => {
+  const { authorized } = React.useContext(AuthContext);
   if (authorized === false) {
     return null;
   }

@@ -1,3 +1,4 @@
+import { isEmpty } from "ramda";
 import * as React from "react";
 import styled from "styled-components";
 import { VictoryBar } from "victory";
@@ -6,7 +7,6 @@ import { Photo } from "types/api";
 import { Colors, Spacing, Breakpoints } from "styles/Base";
 import { avgCountPerWeekDay, countPerHour } from "utils/photos";
 import { getAbbreviatedDay } from "utils/time";
-import { hasItems } from "utils/data-operations";
 import { ScrollableChart } from "./Scrollable";
 
 const Listing = styled.div`
@@ -62,7 +62,7 @@ interface Props {
 }
 
 const PhotoData: React.FC<Props> = ({ photos }) => {
-  if (!hasItems(photos)) {
+  if (isEmpty(photos)) {
     return null;
   }
 

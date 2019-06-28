@@ -5,12 +5,15 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import App from "App";
 import * as serviceWorker from "serviceWorker";
 import GlobalStyles from "styles/Global";
+import { AuthProvider } from "store";
 
 ReactDOM.render(
   <Router>
     <>
       <GlobalStyles />
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
       <Switch>
         <Route path="/callback" component={App} />
       </Switch>

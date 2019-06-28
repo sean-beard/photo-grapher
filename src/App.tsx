@@ -1,15 +1,14 @@
 import * as React from "react";
 import styled from "styled-components";
 import { isNil } from "ramda";
+import { Switch, Route } from "react-router-dom";
 
 import { authorizeWithGoogle } from "utils/api";
-import PhotoMap from "components/PhotoMap";
-import { Photo } from "types/api";
 import LoginButton from "components/LoginButton";
 import { Colors } from "styles/Base";
-import Folders from "components/Folders";
-import PhotoData from "components/PhotoData";
 import Navigation from "components/Navigation";
+import Home from "components/Home";
+import { AuthContext } from "store";
 
 const Wrapper = styled.div`
   background-color: ${Colors.BASE_BLUE};
@@ -28,16 +27,8 @@ const Body = styled.div`
   text-align: center;
 `;
 
-export interface AppState {
-  authorized: boolean | null;
-  photos: Photo[];
-}
-
 const App: React.FunctionComponent = () => {
-  const [authorized, setAuthorized] = React.useState<AppState["authorized"]>(
-    null
-  );
-  const [photos, setPhotos] = React.useState<AppState["photos"]>([]);
+  const { authorized, setAuthorized } = React.useContext(AuthContext);
 
   React.useEffect(() => {
     if (isNil(authorized)) {
@@ -55,32 +46,16 @@ const App: React.FunctionComponent = () => {
     setAuthorized(false);
   };
 
-  const handlePhotoFetchSuccess = (photos: Photo[]) => {
-    setPhotos(photos);
-  };
-
-  const handlePhotoFetchFailure = () => {
-    setPhotos([]);
-  };
-
   return (
     <Wrapper>
-      <Navigation {...{ authorized }} onLogout={() => setAuthorized(false)} />
+      <Navigation onLogout={() => setAuthorized(false)} />
       <Body>
         {authorized === false && (
           <LoginButton onLoginSuccess={handleAuthSuccess} />
         )}
-        <Folders
-          {...{ authorized }}
-          onPhotoFetchSuccess={handlePhotoFetchSuccess}
-          onPhotoFetchFailure={handlePhotoFetchFailure}
-        />
-        {authorized && (
-          <>
-            <PhotoMap {...{ photos }} />
-            <PhotoData {...{ photos }} />
-          </>
-        )}
+        <Switch>
+          <Route exact path="/" component={Home} />
+        </Switch>
       </Body>
     </Wrapper>
   );

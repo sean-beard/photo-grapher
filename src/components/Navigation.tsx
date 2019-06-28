@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import { AppState } from "App";
 import { Spacing } from "styles/Base";
 import LogoutButtonLink from "./LogoutButtonLink";
+import { AuthContext } from "store";
 
 const Nav = styled.header`
   display: flex;
@@ -13,12 +13,12 @@ const Nav = styled.header`
 `;
 
 interface Props {
-  authorized: AppState["authorized"];
   onLogout: () => void;
 }
 
-const Navigation: React.FC<Props> = ({ authorized, onLogout }) => (
-  <Nav>{authorized && <LogoutButtonLink {...{ onLogout }} />}</Nav>
-);
+const Navigation: React.FC<Props> = ({ onLogout }) => {
+  const { authorized } = React.useContext(AuthContext);
+  return <Nav>{authorized && <LogoutButtonLink {...{ onLogout }} />}</Nav>;
+};
 
 export default Navigation;
