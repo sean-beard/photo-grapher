@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { isNil } from "ramda";
+import { Switch, Route } from "react-router-dom";
 
 import { authorizeWithGoogle } from "utils/api";
 import LoginButton from "components/LoginButton";
@@ -57,7 +58,9 @@ const App: React.FunctionComponent = () => {
         {authorized === false && (
           <LoginButton onLoginSuccess={handleAuthSuccess} />
         )}
-        <Home {...{ authorized }} />
+        <Switch>
+          <Route exact path="/" render={() => <Home {...{ authorized }} />} />
+        </Switch>
       </Body>
     </Wrapper>
   );
