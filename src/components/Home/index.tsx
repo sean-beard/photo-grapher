@@ -4,14 +4,11 @@ import PhotoMap from "components/PhotoMap";
 import { Photo } from "types/api";
 import Folders from "components/Folders";
 import PhotoData from "components/PhotoData";
-import { Authorized } from "types/store";
+import { AuthContext } from "store";
 
-interface Props {
-  authorized: Authorized["authorized"];
-}
-
-const Home: React.FC<Props> = ({ authorized }) => {
+const Home: React.FC = () => {
   const [photos, setPhotos] = React.useState<Photo[]>([]);
+  const { authorized } = React.useContext(AuthContext);
 
   return (
     <>

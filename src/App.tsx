@@ -54,7 +54,7 @@ const App: React.FunctionComponent = () => {
           <LoginButton onLoginSuccess={handleAuthSuccess} />
         )}
         <Switch>
-          <Route exact path="/" render={() => <Home {...{ authorized }} />} />
+          <Route exact path="/" component={Home} />
         </Switch>
       </Body>
     </Wrapper>
