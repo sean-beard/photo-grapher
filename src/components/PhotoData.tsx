@@ -8,6 +8,7 @@ import { Colors, Spacing, Breakpoints } from "styles/Base";
 import { avgCountPerWeekDay, countPerHour } from "utils/photos";
 import { getAbbreviatedDay } from "utils/time";
 import { ScrollableChart } from "./Scrollable";
+import { PhotoContext } from "store";
 
 const Listing = styled.div`
   display: flex;
@@ -57,11 +58,9 @@ const FullRowChart = styled.div`
   }
 `;
 
-interface Props {
-  photos: Photo[];
-}
+const PhotoData: React.FC = () => {
+  const { photos } = React.useContext(PhotoContext);
 
-const PhotoData: React.FC<Props> = ({ photos }) => {
   if (isEmpty(photos)) {
     return null;
   }

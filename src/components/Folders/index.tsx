@@ -7,25 +7,17 @@ import {
   fetchRootLevelDriveFolders
 } from "utils/api";
 import FolderList from "./FolderList";
-import { Photo, Folder } from "../../types/api";
+import { Folder } from "types/api";
 import { ModalLoader } from "components/Loading";
-import { AuthContext } from "store";
+import { AuthContext, PhotoContext } from "store";
 
-interface Props {
-  onPhotoFetchSuccess: (photos: Photo[]) => void;
-  onPhotoFetchFailure: () => void;
-}
-
-const Folders: React.FunctionComponent<Props> = ({
-  onPhotoFetchSuccess,
-  onPhotoFetchFailure
-}) => {
+const Folders: React.FC = () => {
   const { authorized } = React.useContext(AuthContext);
+  const { photos, setPhotoState } = React.useContext(PhotoContext);
 
   const [folders, setFolders] = React.useState<Folder[]>([]);
   const [loadingFolders, setLoadingFolders] = React.useState(false);
   const [loadingPhotos, setLoadingPhotos] = React.useState(false);
-  const [photos, setPhotos] = React.useState<Photo[]>([]);
   const [selectedFolderId, setSelectedFolderId] = React.useState("");
 
   React.useEffect(() => {
@@ -73,19 +65,14 @@ const Folders: React.FunctionComponent<Props> = ({
   ) => {
     const photos = getPhotosWithLocation(response.result.files);
     setLoadingPhotos(false);
-    setPhotos(photos);
     setSelectedFolderId(folderId);
-    if (photos.length > 0) {
-      onPhotoFetchSuccess(photos);
-    } else {
-      onPhotoFetchFailure();
-    }
+    setPhotoState({ photos });
   };
 
   const handlePhotosFetchError = (error: any) => {
     console.log(`Error fetching photos: ${error.message}`);
     setLoadingPhotos(false);
-    onPhotoFetchFailure();
+    setPhotoState({ photos: [] });
   };
 
   return (

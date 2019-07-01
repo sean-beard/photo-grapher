@@ -9,6 +9,7 @@ import ImagePopup from "components/ImagePopup";
 import { Spacing } from "styles/Base";
 import { getBounds } from "utils/map";
 import { getLocations } from "utils/photos";
+import { PhotoContext } from "store";
 
 const LeafletMap = styled(LMap)`
   height: 325px;
@@ -21,7 +22,7 @@ interface Props {
   photos: Photo[];
 }
 
-const PlotPhotos: React.FunctionComponent<Props> = ({ photos }) => (
+const PlotPhotos: React.FC<Props> = ({ photos }) => (
   <>
     {photos.map(({ id, imageMediaMetadata: { location } }) => {
       const lat: number | undefined = path(["latitude"], location || {});
@@ -39,7 +40,9 @@ const PlotPhotos: React.FunctionComponent<Props> = ({ photos }) => (
   </>
 );
 
-const PhotoMap: React.FunctionComponent<Props> = ({ photos }) => {
+const PhotoMap: React.FC = () => {
+  const { photos } = React.useContext(PhotoContext);
+
   if (isEmpty(photos)) {
     return null;
   }

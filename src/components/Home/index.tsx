@@ -1,28 +1,23 @@
 import * as React from "react";
 
 import PhotoMap from "components/PhotoMap";
-import { Photo } from "types/api";
 import Folders from "components/Folders";
 import PhotoData from "components/PhotoData";
-import { AuthContext } from "store";
+import { AuthContext, PhotoProvider } from "store";
 
 const Home: React.FC = () => {
-  const [photos, setPhotos] = React.useState<Photo[]>([]);
   const { authorized } = React.useContext(AuthContext);
 
   return (
-    <>
-      <Folders
-        onPhotoFetchSuccess={(photos: Photo[]) => setPhotos(photos)}
-        onPhotoFetchFailure={() => setPhotos([])}
-      />
+    <PhotoProvider>
+      <Folders />
       {authorized && (
         <>
-          <PhotoMap {...{ photos }} />
-          <PhotoData {...{ photos }} />
+          <PhotoMap />
+          <PhotoData />
         </>
       )}
-    </>
+    </PhotoProvider>
   );
 };
 
