@@ -10,6 +10,17 @@ export const URL_PREFIX = `https://www.googleapis.com/drive/v3/files??key=${CLIE
 let GoogleAuth: gapi.auth2.GoogleAuth | undefined;
 
 /**
+ * Initializes google auth with the client
+ */
+const initializeGoogleAuth = () => {
+  GoogleAuth = gapi.auth2.init({
+    client_id: CLIENT_ID,
+    scope: SCOPES.join(" "),
+    cookie_policy: "single_host_origin"
+  });
+};
+
+/**
  * @param onSuccess Auth success callback
  * @param onError Auth error callback
  */
@@ -23,6 +34,7 @@ export const authorizeWithGoogle = (
         { client_id: CLIENT_ID, scope: SCOPES, immediate: true },
         authResult => {
           if (authResult && !authResult.error) {
+            initializeGoogleAuth();
             return onSuccess();
           } else {
             console.log(`Authorization failure... ${authResult.error}`);
@@ -38,12 +50,8 @@ export const authorizeWithGoogle = (
  * which is called when the sign-in button is rendered and also called after a sign-in flow completes.
  */
 export const googleLogin = (callback: () => void) => {
-  GoogleAuth = gapi.auth2.init({
-    client_id: CLIENT_ID,
-    scope: SCOPES.join(" "),
-    cookie_policy: "single_host_origin"
-  });
-  GoogleAuth.signIn().then(() => callback());
+  initializeGoogleAuth();
+  GoogleAuth!.signIn().then(() => callback());
 };
 
 /**
