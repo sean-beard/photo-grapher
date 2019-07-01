@@ -1,4 +1,4 @@
-export interface Authorized {
+export interface AuthState {
   authorized: boolean | null;
-  setAuthorized: (authorized: boolean) => void;
+  setAuthState: React.Dispatch<any>;
 }

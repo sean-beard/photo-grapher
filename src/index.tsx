@@ -13,10 +13,10 @@ ReactDOM.render(
       <GlobalStyles />
       <AuthProvider>
         <App />
+        <Switch>
+          <Route path="/callback" component={App} />
+        </Switch>
       </AuthProvider>
-      <Switch>
-        <Route path="/callback" component={App} />
-      </Switch>
     </>
   </Router>,
   document.getElementById("root")

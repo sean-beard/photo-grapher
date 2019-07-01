@@ -12,13 +12,17 @@ const Nav = styled.header`
   margin-bottom: ${Spacing.LARGE};
 `;
 
-interface Props {
-  onLogout: () => void;
-}
-
-const Navigation: React.FC<Props> = ({ onLogout }) => {
-  const { authorized } = React.useContext(AuthContext);
-  return <Nav>{authorized && <LogoutButtonLink {...{ onLogout }} />}</Nav>;
+const Navigation: React.FC = () => {
+  const { authorized, setAuthState } = React.useContext(AuthContext);
+  return (
+    <Nav>
+      {authorized && (
+        <LogoutButtonLink
+          onLogout={() => setAuthState({ authorized: false })}
+        />
+      )}
+    </Nav>
+  );
 };
 
 export default Navigation;

@@ -28,7 +28,7 @@ const Body = styled.div`
 `;
 
 const App: React.FunctionComponent = () => {
-  const { authorized, setAuthorized } = React.useContext(AuthContext);
+  const { authorized, setAuthState } = React.useContext(AuthContext);
 
   React.useEffect(() => {
     if (isNil(authorized)) {
@@ -39,16 +39,16 @@ const App: React.FunctionComponent = () => {
   const authorize = () =>
     authorizeWithGoogle(handleAuthSuccess, handleAuthError);
 
-  const handleAuthSuccess = () => setAuthorized(true);
+  const handleAuthSuccess = () => setAuthState({ authorized: true });
 
   const handleAuthError = () => {
     console.log("Error authorizing with Google...");
-    setAuthorized(false);
+    setAuthState({ authorized: false });
   };
 
   return (
     <Wrapper>
-      <Navigation onLogout={() => setAuthorized(false)} />
+      <Navigation />
       <Body>
         {authorized === false && (
           <LoginButton onLoginSuccess={handleAuthSuccess} />

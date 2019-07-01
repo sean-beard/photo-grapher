@@ -29,9 +29,6 @@ const Folders: React.FunctionComponent<Props> = ({
   onPhotoFetchFailure
 }) => {
   const { authorized } = React.useContext(AuthContext);
-  if (authorized === false) {
-    return null;
-  }
 
   const [folders, setFolders] = React.useState<State["folders"]>([]);
   const [loadingFolders, setLoadingFolders] = React.useState<
@@ -50,6 +47,10 @@ const Folders: React.FunctionComponent<Props> = ({
       getFolders();
     }
   }, [authorized]);
+
+  if (authorized === false) {
+    return null;
+  }
 
   const getFolders = () => {
     setLoadingFolders(true);

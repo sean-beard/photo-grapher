@@ -1,30 +1,27 @@
 import * as React from "react";
+import { AuthState } from "types/store";
 
-import { Authorized } from "types/store";
-
-const initialAuthState: Authorized = Object.freeze({
+const initialAuthState: AuthState = Object.freeze({
   authorized: null,
-  setAuthorized: () => {}
+  setAuthState: (state: { authorized: boolean | null }) => {}
 });
 
-export const AuthContext = React.createContext<Authorized>(initialAuthState);
+export const AuthContext = React.createContext(initialAuthState);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const setAuthorized = (newAuthorizedVal: boolean) => {
-    setAuthorizedVal((prevState: Authorized) => ({
-      ...prevState,
-      authorized: newAuthorizedVal
-    }));
-  };
+  const [state, setAuthState] = React.useReducer((state, newState) => {
+    return { ...state, ...newState };
+  }, initialAuthState);
 
-  const initProviderState: Authorized = {
-    authorized: null,
-    setAuthorized
-  };
-
-  const [authorized, setAuthorizedVal] = React.useState(initProviderState);
+  const contextValue: AuthState = React.useMemo(
+    () => ({
+      ...state,
+      setAuthState
+    }),
+    [state.authorized]
+  );
 
   return (
-    <AuthContext.Provider value={authorized}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 };
