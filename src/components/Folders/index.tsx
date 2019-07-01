@@ -16,31 +16,17 @@ interface Props {
   onPhotoFetchFailure: () => void;
 }
 
-interface State {
-  folders: Folder[];
-  loadingFolders: boolean;
-  loadingPhotos: boolean;
-  photos: Photo[];
-  selectedFolderId: string;
-}
-
 const Folders: React.FunctionComponent<Props> = ({
   onPhotoFetchSuccess,
   onPhotoFetchFailure
 }) => {
   const { authorized } = React.useContext(AuthContext);
 
-  const [folders, setFolders] = React.useState<State["folders"]>([]);
-  const [loadingFolders, setLoadingFolders] = React.useState<
-    State["loadingFolders"]
-  >(false);
-  const [loadingPhotos, setLoadingPhotos] = React.useState<
-    State["loadingPhotos"]
-  >(false);
-  const [photos, setPhotos] = React.useState<State["photos"]>([]);
-  const [selectedFolderId, setSelectedFolderId] = React.useState<
-    State["selectedFolderId"]
-  >("");
+  const [folders, setFolders] = React.useState<Folder[]>([]);
+  const [loadingFolders, setLoadingFolders] = React.useState(false);
+  const [loadingPhotos, setLoadingPhotos] = React.useState(false);
+  const [photos, setPhotos] = React.useState<Photo[]>([]);
+  const [selectedFolderId, setSelectedFolderId] = React.useState("");
 
   React.useEffect(() => {
     if (authorized) {
