@@ -13,6 +13,11 @@ const Nav = styled.header`
   align-items: flex-end;
   justify-content: center;
   width: 100%;
+  background-color: ${Colors.BASE_BLUE};
+  padding-bottom: ${Spacing.MICRO};
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 
 const Link = styled(NavLink)`
