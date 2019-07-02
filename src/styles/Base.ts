@@ -9,7 +9,7 @@ export enum Spacing {
   SMALL = "1rem",
   NORMAL = "1.5rem",
   MEDIUM = "2rem",
-  LARGE = "2.5",
+  LARGE = "2.5rem",
   XLARGE = "4rem"
 }
 
