@@ -6,7 +6,11 @@ import { ButtonLink } from "components/Button";
 import { Spacing } from "styles/Base";
 
 const Wrapper = styled.div`
-  margin: ${Spacing.SMALL};
+  margin: 0 ${Spacing.LARGE};
+`;
+
+const SmallButtonLink = styled(ButtonLink)`
+  font-size: ${Spacing.SMALL};
 `;
 
 interface Props {
@@ -15,7 +19,9 @@ interface Props {
 
 const LogoutButtonLink: React.FC<Props> = ({ onLogout }) => (
   <Wrapper>
-    <ButtonLink onClick={() => googleLogout(onLogout)}>Sign Out</ButtonLink>
+    <SmallButtonLink onClick={() => googleLogout(onLogout)}>
+      Sign Out
+    </SmallButtonLink>
   </Wrapper>
 );
 

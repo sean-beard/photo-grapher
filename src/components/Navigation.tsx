@@ -7,7 +7,8 @@ import { AuthContext } from "store";
 
 const Nav = styled.header`
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
   width: 100%;
   margin-bottom: ${Spacing.LARGE};
 `;
