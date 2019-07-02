@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { Map as LMap, TileLayer, Marker } from "react-leaflet";
 import { path, isEmpty } from "ramda";
 import { FitBoundsOptions } from "leaflet";
+import { Redirect } from "react-router-dom";
 
 import { Photo } from "types/api";
 import ImagePopup from "components/ImagePopup";
 import { Spacing } from "styles/Base";
 import { getBounds } from "utils/map";
 import { getLocations } from "utils/photos";
-import { PhotoContext } from "store";
+import { AuthContext, PhotoContext } from "store";
 
 const LeafletMap = styled(LMap)`
   height: 325px;
@@ -41,10 +42,11 @@ const PlotPhotos: React.FC<Props> = ({ photos }) => (
 );
 
 const PhotoMap: React.FC = () => {
+  const { authorized } = React.useContext(AuthContext);
   const { photos } = React.useContext(PhotoContext);
 
-  if (isEmpty(photos)) {
-    return null;
+  if (!authorized || isEmpty(photos)) {
+    return <Redirect to="/" />;
   }
 
   const bounds = getBounds(getLocations(photos));

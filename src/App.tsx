@@ -8,7 +8,9 @@ import LoginButton from "components/LoginButton";
 import { Colors } from "styles/Base";
 import Navigation from "components/Navigation";
 import Home from "components/Home";
-import { AuthContext } from "store";
+import { AuthContext, PhotoProvider } from "store";
+import PhotoMap from "components/PhotoMap";
+import PhotoData from "components/PhotoData";
 
 const Wrapper = styled.div`
   background-color: ${Colors.BASE_BLUE};
@@ -48,15 +50,19 @@ const App: React.FunctionComponent = () => {
 
   return (
     <Wrapper>
-      <Navigation />
-      <Body>
-        {authorized === false && (
-          <LoginButton onLoginSuccess={handleAuthSuccess} />
-        )}
-        <Switch>
-          <Route exact path="/" component={Home} />
-        </Switch>
-      </Body>
+      <PhotoProvider>
+        <Navigation />
+        <Body>
+          {authorized === false && (
+            <LoginButton onLoginSuccess={handleAuthSuccess} />
+          )}
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/map" component={PhotoMap} />
+            <Route exact path="/data" component={PhotoData} />
+          </Switch>
+        </Body>
+      </PhotoProvider>
     </Wrapper>
   );
 };

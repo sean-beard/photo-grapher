@@ -1,5 +1,6 @@
 import * as React from "react";
 import { isNil } from "ramda";
+import { Redirect } from "react-router";
 
 import { getPhotosWithLocation } from "utils/photos";
 import {
@@ -136,6 +137,7 @@ const Folders: React.FC = () => {
       )}
       <FolderList {...{ folders }} onSelection={handleFolderSelection} />
       <ModalLoader isLoading={isNil(authorized) || loading} />
+      {selectedFolderId && photos.length > 0 && <Redirect to="/map" />}
     </>
   );
 };

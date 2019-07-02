@@ -2,13 +2,13 @@ import { isEmpty } from "ramda";
 import * as React from "react";
 import styled from "styled-components";
 import { VictoryBar } from "victory";
+import { Redirect } from "react-router-dom";
 
-import { Photo } from "types/api";
 import { Colors, Spacing, Breakpoints } from "styles/Base";
 import { avgCountPerWeekDay, countPerHour } from "utils/photos";
 import { getAbbreviatedDay } from "utils/time";
 import { ScrollableChart } from "./Scrollable";
-import { PhotoContext } from "store";
+import { AuthContext, PhotoContext } from "store";
 
 const Listing = styled.div`
   display: flex;
@@ -59,10 +59,11 @@ const FullRowChart = styled.div`
 `;
 
 const PhotoData: React.FC = () => {
+  const { authorized } = React.useContext(AuthContext);
   const { photos } = React.useContext(PhotoContext);
 
-  if (isEmpty(photos)) {
-    return null;
+  if (!authorized || isEmpty(photos)) {
+    return <Redirect to="/" />;
   }
 
   const avgNumPhotosPerDay = avgCountPerWeekDay(photos);
