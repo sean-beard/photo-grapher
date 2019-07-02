@@ -11,14 +11,70 @@ import { Folder } from "types/api";
 import { ModalLoader } from "components/Loading";
 import { AuthContext, PhotoContext } from "store";
 
+interface State {
+  loading: boolean;
+  folders: Folder[];
+  selectedFolderId: string;
+}
+
+type Action =
+  | {
+      type:
+        | "FETCH_FOLDERS"
+        | "FETCH_FOLDERS_FAILURE"
+        | "FETCH_PHOTOS"
+        | "FETCH_PHOTO_FAILURE";
+    }
+  | {
+      type: "FETCH_FOLDERS_SUCCESS";
+      folders: Folder[];
+    }
+  | {
+      type: "FETCH_PHOTO_SUCCESS";
+      selectedFolderId: string;
+    };
+
+const initialState: State = Object.freeze({
+  loading: true,
+  folders: [],
+  selectedFolderId: ""
+});
+
+const folderReducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case "FETCH_FOLDERS":
+      return { ...initialState, loading: true };
+    case "FETCH_FOLDERS_SUCCESS":
+      return {
+        loading: false,
+        folders: action.folders,
+        selectedFolderId: ""
+      };
+    case "FETCH_FOLDERS_FAILURE":
+      return initialState;
+    case "FETCH_PHOTOS":
+      return { ...state, loading: true };
+    case "FETCH_PHOTO_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        selectedFolderId: action.selectedFolderId
+      };
+    case "FETCH_PHOTO_FAILURE":
+      return { ...state, loading: false };
+    default:
+      return state;
+  }
+};
+
 const Folders: React.FC = () => {
   const { authorized } = React.useContext(AuthContext);
   const { photos, setPhotoState } = React.useContext(PhotoContext);
 
-  const [folders, setFolders] = React.useState<Folder[]>([]);
-  const [loadingFolders, setLoadingFolders] = React.useState(false);
-  const [loadingPhotos, setLoadingPhotos] = React.useState(false);
-  const [selectedFolderId, setSelectedFolderId] = React.useState("");
+  const [{ loading, folders, selectedFolderId }, dispatch] = React.useReducer(
+    folderReducer,
+    initialState
+  );
 
   React.useEffect(() => {
     if (authorized) {
@@ -31,7 +87,7 @@ const Folders: React.FC = () => {
   }
 
   const getFolders = () => {
-    setLoadingFolders(true);
+    dispatch({ type: "FETCH_FOLDERS" });
     fetchRootLevelDriveFolders(
       handleFolderFetchSuccess,
       handleFolderFetchError
@@ -41,17 +97,16 @@ const Folders: React.FC = () => {
   const handleFolderFetchSuccess = (
     response: gapi.client.HttpRequestFulfilled<any>
   ) => {
-    setLoadingFolders(false);
-    setFolders(response.result.files);
+    dispatch({ type: "FETCH_FOLDERS_SUCCESS", folders: response.result.files });
   };
 
   const handleFolderFetchError = (error: any) => {
     console.log(`Error fetching folders: ${error.message}`);
-    setLoadingFolders(false);
+    dispatch({ type: "FETCH_FOLDERS_FAILURE" });
   };
 
   const handleFolderSelection = (folderId: string) => {
-    setLoadingPhotos(true);
+    dispatch({ type: "FETCH_PHOTOS" });
     fetchDrivePhotosWithLocFromFolder(
       folderId,
       response => handlePhotosFetchSuccess(folderId, response),
@@ -64,14 +119,13 @@ const Folders: React.FC = () => {
     response: gapi.client.HttpRequestFulfilled<any>
   ) => {
     const photos = getPhotosWithLocation(response.result.files);
-    setLoadingPhotos(false);
-    setSelectedFolderId(folderId);
     setPhotoState({ photos });
+    dispatch({ type: "FETCH_PHOTO_SUCCESS", selectedFolderId: folderId });
   };
 
   const handlePhotosFetchError = (error: any) => {
     console.log(`Error fetching photos: ${error.message}`);
-    setLoadingPhotos(false);
+    dispatch({ type: "FETCH_PHOTO_FAILURE" });
     setPhotoState({ photos: [] });
   };
 
@@ -81,9 +135,7 @@ const Folders: React.FC = () => {
         <h2>Whoops... Couldn't find any photos with location data.</h2>
       )}
       <FolderList {...{ folders }} onSelection={handleFolderSelection} />
-      <ModalLoader
-        isLoading={isNil(authorized) || loadingFolders || loadingPhotos}
-      />
+      <ModalLoader isLoading={isNil(authorized) || loading} />
     </>
   );
 };
