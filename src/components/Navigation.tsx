@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-import { Spacing, Colors } from "styles/Base";
+import { Spacing, Colors, Breakpoints } from "styles/Base";
 import LogoutButtonLink from "./LogoutButtonLink";
 import { AuthContext, PhotoContext } from "store";
 import { hasItems } from "utils/data-operations";
@@ -18,6 +18,11 @@ const Nav = styled.header`
   position: sticky;
   top: 0;
   z-index: 1;
+
+  @media (${Breakpoints.MOBILE}) {
+    margin-bottom: 0 1rem;
+    height: ${Spacing.LARGE};
+  }
 `;
 
 const Link = styled(NavLink)`
@@ -36,6 +41,10 @@ const DesktopLinks = styled.div`
 
   > ${Link} + ${Link} {
     margin-left: ${Spacing.NORMAL};
+  }
+
+  @media (${Breakpoints.MOBILE}) {
+    display: none;
   }
 `;
 

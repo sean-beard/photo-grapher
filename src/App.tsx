@@ -11,8 +11,12 @@ import Home from "components/Home";
 import { AuthContext, PhotoProvider } from "store";
 import PhotoMap from "components/PhotoMap";
 import PhotoData from "components/PhotoData";
+import MobileFooterNav from "components/MobileFooterNav";
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: ${Colors.BASE_BLUE};
   min-height: 100vh;
   width: 100%;
@@ -62,6 +66,7 @@ const App: React.FunctionComponent = () => {
             <Route exact path="/data" component={PhotoData} />
           </Switch>
         </Body>
+        <MobileFooterNav />
       </PhotoProvider>
     </Wrapper>
   );
