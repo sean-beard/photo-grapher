@@ -31,7 +31,8 @@ export const Modal = (props: Props) => {
     overlay: {
       display: "flex",
       backgroundColor: "rgba(74, 72, 68, 0.2)",
-      padding: Spacing.SMALL
+      padding: Spacing.SMALL,
+      zIndex: 5
     },
     content: {
       alignSelf: "center",

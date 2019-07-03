@@ -19,6 +19,8 @@ export const ButtonLink = styled.button`
   font-size: ${Spacing.NORMAL};
   text-decoration: underline;
   transition: all 250ms ease;
+  margin: ${Spacing.MICRO} 0;
+  padding: 0;
 
   &:hover {
     color: ${Colors.ACTION_BLUE};

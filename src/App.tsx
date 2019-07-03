@@ -8,9 +8,15 @@ import LoginButton from "components/LoginButton";
 import { Colors } from "styles/Base";
 import Navigation from "components/Navigation";
 import Home from "components/Home";
-import { AuthContext } from "store";
+import { AuthContext, PhotoProvider } from "store";
+import PhotoMap from "components/PhotoMap";
+import PhotoData from "components/PhotoData";
+import MobileFooterNav from "components/MobileFooterNav";
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: ${Colors.BASE_BLUE};
   min-height: 100vh;
   width: 100%;
@@ -21,8 +27,9 @@ const Wrapper = styled.div`
 const Body = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex: 1;
   width: 100%;
   text-align: center;
 `;
@@ -48,15 +55,20 @@ const App: React.FunctionComponent = () => {
 
   return (
     <Wrapper>
-      <Navigation />
-      <Body>
-        {authorized === false && (
-          <LoginButton onLoginSuccess={handleAuthSuccess} />
-        )}
-        <Switch>
-          <Route exact path="/" component={Home} />
-        </Switch>
-      </Body>
+      <PhotoProvider>
+        <Navigation />
+        <Body>
+          {authorized === false && (
+            <LoginButton onLoginSuccess={handleAuthSuccess} />
+          )}
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/map" component={PhotoMap} />
+            <Route exact path="/data" component={PhotoData} />
+          </Switch>
+        </Body>
+        <MobileFooterNav />
+      </PhotoProvider>
     </Wrapper>
   );
 };
