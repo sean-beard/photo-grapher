@@ -7,15 +7,13 @@ import { Redirect } from "react-router-dom";
 
 import { Photo } from "types/api";
 import ImagePopup from "components/ImagePopup";
-import { Spacing } from "styles/Base";
 import { getBounds } from "utils/map";
 import { getLocations } from "utils/photos";
 import { AuthContext, PhotoContext } from "store";
 
 const LeafletMap = styled(LMap)`
-  height: 325px;
+  flex: 1;
   width: 100%;
-  margin-bottom: ${Spacing.LARGE};
   z-index: 0;
 `;
 
