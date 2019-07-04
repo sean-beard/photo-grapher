@@ -48,6 +48,10 @@ const ListingWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  @media (${Breakpoints.MOBILE}) {
+    display: none;
+  }
 `;
 
 const FullRowChart = styled.div`
