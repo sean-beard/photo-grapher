@@ -3,6 +3,7 @@ import * as React from "react";
 import { PhotoState } from "types/store";
 
 const initialPhotoState: PhotoState = Object.freeze({
+  folderId: "",
   photos: [],
   setPhotoState: () => {}
 });

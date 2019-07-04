@@ -6,6 +6,7 @@ export interface AuthState {
 }
 
 export interface PhotoState {
+  folderId: string;
   photos: Photo[];
   setPhotoState: React.Dispatch<any>;
 }
