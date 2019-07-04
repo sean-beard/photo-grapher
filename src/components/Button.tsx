@@ -9,6 +9,12 @@ export const Button = styled.button`
   cursor: pointer;
   border-radius: 3px;
   background-color: ${Colors.ACTION_BLUE};
+
+  &:disabled {
+    color: ${Colors.DISABLED_GRAY};
+    background-color: ${Colors.GRAY};
+    cursor: ${({ disabled }) => (disabled ? "auto" : "pointer")};
+  }
 `;
 
 export const ButtonLink = styled.button`

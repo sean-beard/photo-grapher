@@ -1,6 +1,8 @@
 export enum Colors {
   ACTION_BLUE = "#61dafb",
   BASE_BLUE = "#282c34",
+  DISABLED_GRAY = "#bababa",
+  GRAY = "gray",
   WHITE = "white"
 }
 

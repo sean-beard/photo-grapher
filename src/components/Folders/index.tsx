@@ -120,7 +120,7 @@ const Folders: React.FC = () => {
     response: gapi.client.HttpRequestFulfilled<any>
   ) => {
     const photos = getPhotosWithLocation(response.result.files);
-    setPhotoState({ photos });
+    setPhotoState({ photos, folderId });
     dispatch({ type: "FETCH_PHOTO_SUCCESS", selectedFolderId: folderId });
   };
 
