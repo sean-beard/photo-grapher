@@ -3,7 +3,7 @@ import { AuthState } from "types/store";
 
 const initialAuthState: AuthState = Object.freeze({
   authorized: null,
-  setAuthState: (state: { authorized: boolean | null }) => {}
+  setAuthState: () => {}
 });
 
 export const AuthContext = React.createContext(initialAuthState);
