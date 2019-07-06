@@ -20,24 +20,11 @@ const Listing = styled.div`
   h4 + h4 {
     margin-left: ${Spacing.MICRO};
   }
-
-  @media (${Breakpoints.TABLET}) {
-    > * {
-      margin: ${Spacing.MICRO} 0 ${Spacing.MICRO} ${Spacing.MEDIUM};
-    }
-  }
 `;
 
 const AvarageCountBarChart = styled.div`
   display: flex;
-  align-items: center;
   width: 100%;
-
-  > * {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
 
   @media (${Breakpoints.MOBILE}) {
     flex-direction: column;
@@ -47,7 +34,9 @@ const AvarageCountBarChart = styled.div`
 const ListingWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 
   @media (${Breakpoints.MOBILE}) {
     display: none;
@@ -85,18 +74,17 @@ const PhotoData: React.FC = () => {
   return (
     <>
       <h2>{photos.length} total photos</h2>
+
       <h3>Average Count Per Week Day</h3>
       <AvarageCountBarChart>
-        <div>
-          <ListingWrapper>
-            {avgNumPhotosPerDay.map(([day, count], index) => (
-              <Listing key={index}>
-                <h4>{`${day}:`}</h4>
-                <h4>{Math.round(count * 100) / 100}</h4>
-              </Listing>
-            ))}
-          </ListingWrapper>
-        </div>
+        <ListingWrapper>
+          {avgNumPhotosPerDay.map(([day, count], index) => (
+            <Listing key={index}>
+              <h4>{`${day}:`}</h4>
+              <h4>{Math.round(count * 100) / 100}</h4>
+            </Listing>
+          ))}
+        </ListingWrapper>
         <ScrollableChart domainPadding={10}>
           <VictoryBar
             style={{ data: { fill: Colors.ACTION_BLUE } }}
@@ -104,6 +92,7 @@ const PhotoData: React.FC = () => {
           />
         </ScrollableChart>
       </AvarageCountBarChart>
+
       <h3>Count Per Hour</h3>
       <FullRowChart>
         <ScrollableChart
