@@ -4,8 +4,8 @@ import ProgressiveImage from "react-progressive-image";
 import styled from "styled-components";
 
 import Modal from "components/Modal";
-import Loader, { LoaderWrapper } from "components/Loading";
-import { Spacing, Colors, Breakpoints } from "styles/Base";
+import Loader, { LoaderWrapper, modalLoaderStyle } from "components/Loading";
+import { Spacing, Breakpoints } from "styles/Base";
 
 const ViewButtonWrapper = styled.div`
   display: flex;
@@ -31,12 +31,8 @@ interface Props {
   photoId: string;
 }
 
-interface State {
-  showModal: boolean;
-}
-
 const ImagePopup: React.FunctionComponent<Props> = ({ photoId }) => {
-  const [showModal, setShowModal] = React.useState<State["showModal"]>(false);
+  const [showModal, setShowModal] = React.useState(false);
 
   React.useEffect(() => {
     if (showModal) {
@@ -44,7 +40,7 @@ const ImagePopup: React.FunctionComponent<Props> = ({ photoId }) => {
     } else {
       document.body.style.overflowY = "auto";
     }
-  });
+  }, [showModal]);
 
   return (
     <>
@@ -56,14 +52,7 @@ const ImagePopup: React.FunctionComponent<Props> = ({ photoId }) => {
       <Modal
         isOpen={showModal}
         onRequestClose={() => setShowModal(false)}
-        style={{
-          content: {
-            backgroundColor: Colors.BASE_BLUE,
-            border: "2px solid #282c34",
-            borderRadius: "3px",
-            padding: "0"
-          }
-        }}
+        style={modalLoaderStyle}
       >
         <ProgressiveImage
           src={`https://docs.google.com/uc?id=${photoId}`}

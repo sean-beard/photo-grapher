@@ -20,22 +20,21 @@ export const LoaderWrapper = styled.div`
 
 const Loader = () => <PacmanLoader color={Colors.ACTION_BLUE} />;
 
+export const modalLoaderStyle = {
+  content: {
+    backgroundColor: Colors.BASE_BLUE,
+    border: `2px solid ${Colors.BASE_BLUE}`,
+    borderRadius: "3px",
+    padding: "0"
+  }
+};
+
 interface Props {
   isLoading: boolean;
 }
 
 export const ModalLoader: React.FC<Props> = ({ isLoading }) => (
-  <Modal
-    isOpen={isLoading}
-    style={{
-      content: {
-        backgroundColor: Colors.BASE_BLUE,
-        border: `2px solid ${Colors.BASE_BLUE}`,
-        borderRadius: "3px",
-        padding: "0"
-      }
-    }}
-  >
+  <Modal isOpen={isLoading} style={modalLoaderStyle}>
     <LoaderWrapper>
       <Loader />
     </LoaderWrapper>
