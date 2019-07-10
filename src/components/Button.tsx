@@ -11,8 +11,8 @@ export const Button = styled.button`
   background-color: ${Colors.ACTION_BLUE};
 
   &:disabled {
-    color: ${Colors.DISABLED_GRAY};
-    background-color: ${Colors.GRAY};
+    color: ${Colors.BASE_BLUE};
+    background-color: ${Colors.DISABLED_GRAY};
     cursor: ${({ disabled }) => (disabled ? "auto" : "pointer")};
   }
 `;
