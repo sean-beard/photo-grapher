@@ -56,7 +56,8 @@ const routes: [string, string][] = [
 
 const activeLinkStyle = {
   color: Colors.ACTION_BLUE,
-  textDecoration: "underline"
+  textDecoration: "underline",
+  cursor: "default"
 };
 
 export const Links: React.FC = () => (
