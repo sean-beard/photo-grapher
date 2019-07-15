@@ -1,4 +1,4 @@
-import { Photo } from "./api";
+import { Photo, Folder } from "./api";
 
 // Omit is introduced in TS 3.5
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
@@ -10,6 +10,7 @@ export interface AuthState {
 
 export interface PhotoState {
   folderId: string;
+  folders: Folder[];
   photos: Photo[];
   setPhotoState: React.Dispatch<Partial<Omit<PhotoState, "setPhotoState">>>;
 }

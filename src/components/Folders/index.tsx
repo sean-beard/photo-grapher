@@ -1,5 +1,5 @@
 import * as React from "react";
-import { isNil } from "ramda";
+import { isNil, isEmpty } from "ramda";
 import { Redirect } from "react-router";
 
 import { getPhotosWithLocation } from "utils/photos";
@@ -36,7 +36,7 @@ type Action =
     };
 
 const initialState: State = Object.freeze({
-  loading: true,
+  loading: false,
   folders: [],
   selectedFolderId: ""
 });
@@ -70,7 +70,9 @@ const folderReducer = (state: State, action: Action): State => {
 
 const Folders: React.FC = () => {
   const { authorized } = React.useContext(AuthContext);
-  const { photos, setPhotoState } = React.useContext(PhotoContext);
+  const { folders: storeFolders, photos, setPhotoState } = React.useContext(
+    PhotoContext
+  );
 
   const [{ loading, folders, selectedFolderId }, dispatch] = React.useReducer(
     folderReducer,
@@ -78,10 +80,16 @@ const Folders: React.FC = () => {
   );
 
   React.useEffect(() => {
-    if (authorized) {
-      getFolders();
+    if (!authorized) {
+      return;
     }
-  }, [authorized]);
+
+    if (isEmpty(storeFolders)) {
+      getFolders();
+    } else {
+      dispatch({ type: "FETCH_FOLDERS_SUCCESS", folders: storeFolders });
+    }
+  }, [authorized, storeFolders]);
 
   if (authorized === false) {
     return null;
@@ -98,7 +106,9 @@ const Folders: React.FC = () => {
   const handleFolderFetchSuccess = (
     response: gapi.client.HttpRequestFulfilled<any>
   ) => {
-    dispatch({ type: "FETCH_FOLDERS_SUCCESS", folders: response.result.files });
+    const folders = response.result.files;
+    setPhotoState({ folders });
+    dispatch({ type: "FETCH_FOLDERS_SUCCESS", folders });
   };
 
   const handleFolderFetchError = (error: any) => {

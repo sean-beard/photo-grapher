@@ -4,6 +4,7 @@ import { PhotoState } from "types/store";
 
 const initialPhotoState: PhotoState = Object.freeze({
   folderId: "",
+  folders: [],
   photos: [],
   setPhotoState: () => {}
 });
