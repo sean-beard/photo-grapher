@@ -31,7 +31,7 @@ interface Props {
   photoId: string;
 }
 
-const ImagePopup: React.FunctionComponent<Props> = ({ photoId }) => {
+const ImagePopup: React.FC<Props> = ({ photoId }) => {
   const [showModal, setShowModal] = React.useState(false);
 
   React.useEffect(() => {

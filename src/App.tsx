@@ -34,7 +34,7 @@ const Body = styled.div`
   text-align: center;
 `;
 
-const App: React.FunctionComponent = () => {
+const App: React.FC = () => {
   const { authorized, setAuthState } = React.useContext(AuthContext);
 
   React.useEffect(() => {
