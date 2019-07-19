@@ -20,7 +20,13 @@ export const ScrollableChart: React.FC<VictoryChartProps> = ({
   ...props
 }) => (
   <Scrollable>
-    <VictoryChart theme={VictoryTheme.material} standalone={false} {...props}>
+    <VictoryChart
+      theme={VictoryTheme.material}
+      standalone={false}
+      domainPadding={5}
+      padding={{ top: 0, bottom: 50, left: 50, right: 50 }}
+      {...props}
+    >
       {children}
     </VictoryChart>
   </Scrollable>

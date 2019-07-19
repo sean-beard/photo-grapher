@@ -85,7 +85,7 @@ const PhotoData: React.FC = () => {
             </Listing>
           ))}
         </ListingWrapper>
-        <ScrollableChart domainPadding={10}>
+        <ScrollableChart>
           <VictoryBar
             style={{ data: { fill: Colors.ACTION_BLUE } }}
             data={avgPerDayGraphData}
@@ -95,10 +95,7 @@ const PhotoData: React.FC = () => {
 
       <h3>Count Per Hour</h3>
       <FullRowChart>
-        <ScrollableChart
-          domainPadding={5}
-          padding={{ top: 0, bottom: 30, left: 50, right: 20 }}
-        >
+        <ScrollableChart>
           <VictoryBar
             style={{ data: { fill: Colors.ACTION_BLUE } }}
             data={countPerHourGraphData}
