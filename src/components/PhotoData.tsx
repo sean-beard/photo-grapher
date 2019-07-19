@@ -26,7 +26,7 @@ const AvarageCountBarChart = styled.div`
   display: flex;
   width: 100%;
 
-  @media (${Breakpoints.MOBILE}) {
+  @media (${Breakpoints.TABLET}) {
     flex-direction: column;
   }
 `;
@@ -37,7 +37,7 @@ const ListingWrapper = styled.div`
   align-items: center;
   width: 100%;
 
-  @media (${Breakpoints.MOBILE}) {
+  @media (${Breakpoints.TABLET}) {
     display: none;
   }
 `;
