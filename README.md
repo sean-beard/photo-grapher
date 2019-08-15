@@ -18,9 +18,7 @@ React 📦 TypeScript 📦 Ramda 📦 Styled Components 📦 Leaflet
 
 :heavy_check_mark: [Set up an API key for the new project](https://support.google.com/googleapi/answer/6158862?hl=en)
 
-:heavy_check_mark:[Enable](https://support.google.com/googleapi/answer/6158841?hl=en) the following APIs:
- - Google Drive API
- - Google Picker API
+:heavy_check_mark: [Enable](https://support.google.com/googleapi/answer/6158841?hl=en) the Google Drive API
 
  Then
 
