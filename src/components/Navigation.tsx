@@ -31,7 +31,6 @@ const Nav = styled.nav`
   z-index: 1;
 
   @media (${Breakpoints.MOBILE}) {
-    margin-bottom: 0 1rem;
     height: ${Spacing.LARGE};
   }
 `;
