@@ -35,8 +35,28 @@ const Nav = styled.nav`
   }
 `;
 
+const LogoTagline = styled.div`
+  display: flex;
+  align-content: center;
+`;
+
+const Tagline = styled.small`
+  @media (${Breakpoints.TABLET}) {
+    display: none;
+  }
+`;
+
 const Logo = styled.img`
   height: 50px;
+  border-right: 1px solid ${Colors.ACTION_BLUE};
+  padding-right: ${Spacing.SMALL};
+  margin-right: ${Spacing.SMALL};
+
+  @media (${Breakpoints.TABLET}) {
+    border-right: none;
+    padding-right: 0;
+    margin-right: 0;
+  }
 `;
 
 const Link = styled(NavLink)`
@@ -87,7 +107,10 @@ const Navigation: React.FC = () => {
   const { photos } = React.useContext(PhotoContext);
   return (
     <Header>
-      <Logo alt="logo" src={logo} />
+      <LogoTagline>
+        <Logo alt="logo" src={logo} />
+        <Tagline>Get the most out of your photo data</Tagline>
+      </LogoTagline>
       <Nav>
         {authorized && (
           <>
