@@ -3,15 +3,7 @@ import styled from "styled-components";
 
 import { googleLogout } from "utils/api";
 import { ButtonLink } from "components/Button";
-import { Spacing, Breakpoints } from "styles/Base";
-
-const Wrapper = styled.div`
-  margin: 0 ${Spacing.LARGE};
-
-  @media (${Breakpoints.MOBILE}) {
-    margin: 0 ${Spacing.NORMAL};
-  }
-`;
+import { Spacing } from "styles/Base";
 
 const SmallButtonLink = styled(ButtonLink)`
   font-size: ${Spacing.SMALL};
@@ -22,11 +14,9 @@ interface Props {
 }
 
 const LogoutButtonLink: React.FC<Props> = ({ onLogout }) => (
-  <Wrapper>
-    <SmallButtonLink onClick={() => googleLogout(onLogout)}>
-      Sign Out
-    </SmallButtonLink>
-  </Wrapper>
+  <SmallButtonLink onClick={() => googleLogout(onLogout)}>
+    Sign Out
+  </SmallButtonLink>
 );
 
 export default LogoutButtonLink;

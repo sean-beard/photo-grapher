@@ -2,19 +2,30 @@ import * as React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
+import logo from "assets/favicon.png";
 import { Spacing, Colors, Breakpoints } from "styles/Base";
 import LogoutButtonLink from "./LogoutButtonLink";
 import { AuthContext, PhotoContext } from "store";
 import { hasItems } from "utils/data-operations";
 
-const Nav = styled.header`
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${Spacing.SMALL} ${Spacing.MEDIUM} ${Spacing.MICRO} ${Spacing.MEDIUM};
+
+  @media (${Breakpoints.TABLET}) {
+    padding: ${Spacing.MICRO} ${Spacing.SMALL};
+  }
+`;
+
+const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
   width: 100%;
   background-color: ${Colors.BASE_BLUE};
-  padding-bottom: ${Spacing.MICRO};
   position: sticky;
   top: 0;
   z-index: 1;
@@ -23,6 +34,10 @@ const Nav = styled.header`
     margin-bottom: 0 1rem;
     height: ${Spacing.LARGE};
   }
+`;
+
+const Logo = styled.img`
+  height: 50px;
 `;
 
 const Link = styled(NavLink)`
@@ -37,8 +52,6 @@ const Link = styled(NavLink)`
 `;
 
 const DesktopLinks = styled.div`
-  margin: 0 ${Spacing.LARGE};
-
   > ${Link} + ${Link} {
     margin-left: ${Spacing.NORMAL};
   }
@@ -74,20 +87,23 @@ const Navigation: React.FC = () => {
   const { authorized, setAuthState } = React.useContext(AuthContext);
   const { photos } = React.useContext(PhotoContext);
   return (
-    <Nav>
-      {authorized && (
-        <>
-          <LogoutButtonLink
-            onLogout={() => setAuthState({ authorized: false })}
-          />
-          {hasItems(photos) && (
-            <DesktopLinks>
-              <Links />
-            </DesktopLinks>
-          )}
-        </>
-      )}
-    </Nav>
+    <Header>
+      <Logo alt="logo" src={logo} />
+      <Nav>
+        {authorized && (
+          <>
+            <LogoutButtonLink
+              onLogout={() => setAuthState({ authorized: false })}
+            />
+            {hasItems(photos) && (
+              <DesktopLinks>
+                <Links />
+              </DesktopLinks>
+            )}
+          </>
+        )}
+      </Nav>
+    </Header>
   );
 };
 
