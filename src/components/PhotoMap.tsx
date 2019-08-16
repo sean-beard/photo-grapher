@@ -48,7 +48,7 @@ const PhotoMap: React.FC = () => {
   }
 
   const bounds = getBounds(getLocations(photos));
-  const boundsOptions: FitBoundsOptions = { padding: [25, 25] };
+  const boundsOptions: FitBoundsOptions = { padding: [45, 45] };
 
   return (
     <LeafletMap {...{ bounds, boundsOptions }}>
