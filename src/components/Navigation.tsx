@@ -40,7 +40,18 @@ const LogoTagline = styled.div`
   align-content: center;
 `;
 
+const Title = styled.h1`
+  font-size: 25px;
+  margin: 0;
+
+  @media (${Breakpoints.TABLET}) {
+    display: none;
+  }
+`;
+
 const Tagline = styled.small`
+  font-size: 16px;
+
   @media (${Breakpoints.TABLET}) {
     display: none;
   }
@@ -109,7 +120,17 @@ const Navigation: React.FC = () => {
     <Header>
       <LogoTagline>
         <Logo alt="logo" src={logo} />
-        <Tagline>Get the most out of your photo data</Tagline>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: "300px"
+          }}
+        >
+          <Title>PhotoGrapher</Title>
+          <Tagline>Get the most out of your photo data</Tagline>
+        </div>
       </LogoTagline>
       <Nav>
         {authorized && (
