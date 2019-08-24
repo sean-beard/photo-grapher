@@ -1,6 +1,6 @@
 {
   "name": "photo-finder",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "private": true,
   "scripts": {
     "start": "PORT=8000 react-scripts start",
