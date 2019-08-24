@@ -1,6 +1,6 @@
 import * as React from "react";
 import { isNil, isEmpty } from "ramda";
-import { Redirect } from "react-router";
+import { RouteComponentProps, withRouter } from "react-router";
 
 import { getPhotosWithLocation } from "utils/photos";
 import {
@@ -15,7 +15,6 @@ import { AuthContext, PhotoContext } from "store";
 interface State {
   loading: boolean;
   folders: Folder[];
-  selectedFolderId: string;
 }
 
 type Action =
@@ -32,13 +31,11 @@ type Action =
     }
   | {
       type: "FETCH_PHOTO_SUCCESS";
-      selectedFolderId: string;
     };
 
 const initialState: State = Object.freeze({
   loading: false,
-  folders: [],
-  selectedFolderId: ""
+  folders: []
 });
 
 const folderReducer = (state: State, action: Action): State => {
@@ -48,8 +45,7 @@ const folderReducer = (state: State, action: Action): State => {
     case "FETCH_FOLDERS_SUCCESS":
       return {
         loading: false,
-        folders: action.folders,
-        selectedFolderId: ""
+        folders: action.folders
       };
     case "FETCH_FOLDERS_FAILURE":
       return initialState;
@@ -58,8 +54,7 @@ const folderReducer = (state: State, action: Action): State => {
     case "FETCH_PHOTO_SUCCESS":
       return {
         ...state,
-        loading: false,
-        selectedFolderId: action.selectedFolderId
+        loading: false
       };
     case "FETCH_PHOTO_FAILURE":
       return { ...state, loading: false };
@@ -68,13 +63,16 @@ const folderReducer = (state: State, action: Action): State => {
   }
 };
 
-const Folders: React.FC = () => {
+const Folders: React.FC<RouteComponentProps> = ({ history }) => {
   const { authorized } = React.useContext(AuthContext);
-  const { folders: storeFolders, photos, setPhotoState } = React.useContext(
-    PhotoContext
-  );
+  const {
+    folders: storeFolders,
+    folderId,
+    photos,
+    setPhotoState
+  } = React.useContext(PhotoContext);
 
-  const [{ loading, folders, selectedFolderId }, dispatch] = React.useReducer(
+  const [{ loading, folders }, dispatch] = React.useReducer(
     folderReducer,
     initialState
   );
@@ -131,7 +129,10 @@ const Folders: React.FC = () => {
   ) => {
     const photos = getPhotosWithLocation(response.result.files);
     setPhotoState({ photos, folderId });
-    dispatch({ type: "FETCH_PHOTO_SUCCESS", selectedFolderId: folderId });
+    dispatch({ type: "FETCH_PHOTO_SUCCESS" });
+    if (folderId && photos.length > 0) {
+      history.push("/map");
+    }
   };
 
   const handlePhotosFetchError = (error: any) => {
@@ -142,14 +143,13 @@ const Folders: React.FC = () => {
 
   return (
     <>
-      {selectedFolderId && photos.length < 1 && (
+      {folderId && photos.length < 1 && (
         <h2>Whoops... Couldn't find any photos with location data.</h2>
       )}
       <FolderList {...{ folders }} onSelection={handleFolderSelection} />
       <ModalLoader isLoading={isNil(authorized) || loading} />
-      {selectedFolderId && photos.length > 0 && <Redirect to="/map" />}
     </>
   );
 };
 
-export default Folders;
+export default withRouter(Folders);
