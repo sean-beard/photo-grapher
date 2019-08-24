@@ -14,8 +14,17 @@ const Header = styled.header`
   align-items: center;
   padding: ${Spacing.SMALL} ${Spacing.MEDIUM} ${Spacing.MICRO} ${Spacing.MEDIUM};
 
+  background-color: ${Colors.BASE_BLUE};
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
   @media (${Breakpoints.TABLET}) {
     padding: ${Spacing.MICRO} ${Spacing.SMALL};
+  }
+
+  @media (${Breakpoints.MOBILE}) {
+    height: ${Spacing.LARGE};
   }
 `;
 
@@ -25,14 +34,6 @@ const Nav = styled.nav`
   align-items: flex-end;
   justify-content: center;
   width: 100%;
-  background-color: ${Colors.BASE_BLUE};
-  position: sticky;
-  top: 0;
-  z-index: 1;
-
-  @media (${Breakpoints.MOBILE}) {
-    height: ${Spacing.LARGE};
-  }
 `;
 
 const LogoTagline = styled.div`
