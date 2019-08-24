@@ -28,7 +28,7 @@ const Header = styled.header`
   }
 `;
 
-const Nav = styled.nav`
+const Nav = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -36,26 +36,29 @@ const Nav = styled.nav`
   width: 100%;
 `;
 
-const LogoTagline = styled.div`
+const LogoTitleTagline = styled.div`
   display: flex;
   align-content: center;
+`;
+
+const TitleTagline = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+
+  @media (${Breakpoints.TABLET}) {
+    display: none;
+  }
 `;
 
 const Title = styled.h1`
   font-size: 25px;
   margin: 0;
-
-  @media (${Breakpoints.TABLET}) {
-    display: none;
-  }
 `;
 
 const Tagline = styled.small`
   font-size: 16px;
-
-  @media (${Breakpoints.TABLET}) {
-    display: none;
-  }
 `;
 
 const Logo = styled.img`
@@ -119,20 +122,13 @@ const Navigation: React.FC = () => {
   const { photos } = React.useContext(PhotoContext);
   return (
     <Header>
-      <LogoTagline>
+      <LogoTitleTagline>
         <Logo alt="logo" src={logo} />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            width: "300px"
-          }}
-        >
+        <TitleTagline>
           <Title>PhotoGrapher</Title>
           <Tagline>Get the most out of your photo data</Tagline>
-        </div>
-      </LogoTagline>
+        </TitleTagline>
+      </LogoTitleTagline>
       <Nav>
         {authorized && (
           <>
