@@ -8,93 +8,33 @@ import {
   fetchRootLevelDriveFolders
 } from "utils/api";
 import FolderList from "./FolderList";
-import { Folder } from "types/api";
 import { ModalLoader } from "components/Loading";
 import { AuthContext, PhotoContext } from "store";
 
-interface State {
-  loading: boolean;
-  folders: Folder[];
-}
-
-type Action =
-  | {
-      type:
-        | "FETCH_FOLDERS"
-        | "FETCH_FOLDERS_FAILURE"
-        | "FETCH_PHOTOS"
-        | "FETCH_PHOTO_FAILURE";
-    }
-  | {
-      type: "FETCH_FOLDERS_SUCCESS";
-      folders: Folder[];
-    }
-  | {
-      type: "FETCH_PHOTO_SUCCESS";
-    };
-
-const initialState: State = Object.freeze({
-  loading: false,
-  folders: []
-});
-
-const folderReducer = (state: State, action: Action): State => {
-  switch (action.type) {
-    case "FETCH_FOLDERS":
-      return { ...initialState, loading: true };
-    case "FETCH_FOLDERS_SUCCESS":
-      return {
-        loading: false,
-        folders: action.folders
-      };
-    case "FETCH_FOLDERS_FAILURE":
-      return initialState;
-    case "FETCH_PHOTOS":
-      return { ...state, loading: true };
-    case "FETCH_PHOTO_SUCCESS":
-      return {
-        ...state,
-        loading: false
-      };
-    case "FETCH_PHOTO_FAILURE":
-      return { ...state, loading: false };
-    default:
-      return state;
-  }
-};
-
 const Folders: React.FC<RouteComponentProps> = ({ history }) => {
   const { authorized } = React.useContext(AuthContext);
-  const {
-    folders: storeFolders,
-    folderId,
-    photos,
-    setPhotoState
-  } = React.useContext(PhotoContext);
-
-  const [{ loading, folders }, dispatch] = React.useReducer(
-    folderReducer,
-    initialState
+  const { folders, folderId, photos, setPhotoState } = React.useContext(
+    PhotoContext
   );
+
+  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     if (!authorized) {
       return;
     }
 
-    if (isEmpty(storeFolders)) {
+    if (isEmpty(folders)) {
       getFolders();
-    } else {
-      dispatch({ type: "FETCH_FOLDERS_SUCCESS", folders: storeFolders });
     }
-  }, [authorized, storeFolders]);
+  }, [authorized, folders]);
 
   if (authorized === false) {
     return null;
   }
 
   const getFolders = () => {
-    dispatch({ type: "FETCH_FOLDERS" });
+    setLoading(true);
     fetchRootLevelDriveFolders(
       handleFolderFetchSuccess,
       handleFolderFetchError
@@ -104,18 +44,17 @@ const Folders: React.FC<RouteComponentProps> = ({ history }) => {
   const handleFolderFetchSuccess = (
     response: gapi.client.HttpRequestFulfilled<any>
   ) => {
-    const folders = response.result.files;
-    setPhotoState({ folders });
-    dispatch({ type: "FETCH_FOLDERS_SUCCESS", folders });
+    setPhotoState({ folders: response.result.files });
+    setLoading(false);
   };
 
   const handleFolderFetchError = (error: any) => {
     console.log(`Error fetching folders: ${error.message}`);
-    dispatch({ type: "FETCH_FOLDERS_FAILURE" });
+    setLoading(false);
   };
 
   const handleFolderSelection = (folderId: string) => {
-    dispatch({ type: "FETCH_PHOTOS" });
+    setLoading(true);
     fetchDrivePhotosWithLocFromFolder(
       folderId,
       response => handlePhotosFetchSuccess(folderId, response),
@@ -129,7 +68,7 @@ const Folders: React.FC<RouteComponentProps> = ({ history }) => {
   ) => {
     const photos = getPhotosWithLocation(response.result.files);
     setPhotoState({ photos, folderId });
-    dispatch({ type: "FETCH_PHOTO_SUCCESS" });
+    setLoading(false);
     if (folderId && photos.length > 0) {
       history.push("/map");
     }
@@ -137,7 +76,7 @@ const Folders: React.FC<RouteComponentProps> = ({ history }) => {
 
   const handlePhotosFetchError = (error: any) => {
     console.log(`Error fetching photos: ${error.message}`);
-    dispatch({ type: "FETCH_PHOTO_FAILURE" });
+    setLoading(false);
     setPhotoState({ photos: [] });
   };
 

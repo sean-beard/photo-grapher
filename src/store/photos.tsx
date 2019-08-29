@@ -21,7 +21,7 @@ export const PhotoProvider: React.FC = ({ children }) => {
       ...state,
       setPhotoState
     }),
-    [state.photos]
+    [state.photos, state.folders]
   );
 
   return (
