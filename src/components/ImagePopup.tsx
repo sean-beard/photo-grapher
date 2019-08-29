@@ -4,7 +4,7 @@ import ProgressiveImage from "react-progressive-image";
 import styled from "styled-components";
 
 import Modal from "components/Modal";
-import Loader, { LoaderWrapper, modalLoaderStyle } from "components/Loading";
+import Loader, { modalLoaderStyle } from "components/Loading";
 import { Spacing, Breakpoints } from "styles/Base";
 
 const ViewButtonWrapper = styled.div`
@@ -59,13 +59,7 @@ const ImagePopup: React.FC<Props> = ({ photoId }) => {
           placeholder=""
         >
           {(src: string, loading: boolean) =>
-            loading ? (
-              <LoaderWrapper>
-                <Loader />
-              </LoaderWrapper>
-            ) : (
-              <Photo src={src} alt="photo" />
-            )
+            loading ? <Loader /> : <Photo src={src} alt="photo" />
           }
         </ProgressiveImage>
       </Modal>

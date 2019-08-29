@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Colors, Breakpoints } from "styles/Base";
 import Modal from "./Modal";
 
-export const LoaderWrapper = styled.div`
+const LoaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,7 +18,11 @@ export const LoaderWrapper = styled.div`
   }
 `;
 
-const Loader = () => <PacmanLoader color={Colors.ACTION_BLUE} />;
+const Loader = () => (
+  <LoaderWrapper>
+    <PacmanLoader color={Colors.ACTION_BLUE} />
+  </LoaderWrapper>
+);
 
 export const modalLoaderStyle = {
   content: {
@@ -35,9 +39,7 @@ interface Props {
 
 export const ModalLoader: React.FC<Props> = ({ isLoading }) => (
   <Modal isOpen={isLoading} style={modalLoaderStyle}>
-    <LoaderWrapper>
-      <Loader />
-    </LoaderWrapper>
+    <Loader />
   </Modal>
 );
 
