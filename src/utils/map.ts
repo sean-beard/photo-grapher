@@ -1,6 +1,10 @@
+import { FitBoundsOptions } from "leaflet";
 import { pluck } from "ramda";
+import { MapProps } from "react-leaflet";
 
+import { Photo } from "types/api";
 import { Location } from "types/map";
+import { getLocations } from "./photos";
 
 const maxReducer = (acc: number | null, next: number) =>
   acc ? (next > acc ? next : acc) : next;
@@ -24,3 +28,17 @@ export const getBounds = (locations: Location[]) => {
   }
   return undefined;
 };
+
+export const getLeafletProps = (photos: Photo[]): Partial<MapProps> => {
+  const locations = getLocations(photos);
+  const oneLocation = locations.length === 1 ? locations[0] : undefined;
+
+  if (oneLocation) {
+    return {center: oneLocation, zoom: 12};
+  }
+
+  const bounds = getBounds(locations);
+  const boundsOptions: FitBoundsOptions = { padding: [45, 45] };
+
+  return {bounds, boundsOptions}
+}
