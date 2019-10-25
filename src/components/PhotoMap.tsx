@@ -2,14 +2,12 @@ import * as React from "react";
 import styled from "styled-components";
 import { Map as LMap, TileLayer, Marker } from "react-leaflet";
 import { path, isEmpty } from "ramda";
-import { FitBoundsOptions } from "leaflet";
 import { Redirect } from "react-router-dom";
 
 import { Photo } from "types/api";
 import ImagePopup from "components/ImagePopup";
-import { getBounds } from "utils/map";
-import { getLocations } from "utils/photos";
 import { AuthContext, PhotoContext } from "store";
+import { getLeafletProps } from "utils/map";
 
 const LeafletMap = styled(LMap)`
   flex: 1;
@@ -47,11 +45,8 @@ const PhotoMap: React.FC = () => {
     return <Redirect to="/" />;
   }
 
-  const bounds = getBounds(getLocations(photos));
-  const boundsOptions: FitBoundsOptions = { padding: [45, 45] };
-
   return (
-    <LeafletMap {...{ bounds, boundsOptions }}>
+    <LeafletMap {...getLeafletProps(photos)}>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <PlotPhotos {...{ photos }} />
     </LeafletMap>
