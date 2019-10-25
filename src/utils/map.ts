@@ -31,6 +31,11 @@ export const getBounds = (locations: Location[]) => {
 
 export const getLeafletProps = (photos: Photo[]): Partial<MapProps> => {
   const locations = getLocations(photos);
+  const oneLocation = locations.length === 1 ? locations[0] : undefined;
+
+  if (oneLocation) {
+    return {center: oneLocation, zoom: 12};
+  }
 
   const bounds = getBounds(locations);
   const boundsOptions: FitBoundsOptions = { padding: [45, 45] };
