@@ -55,7 +55,7 @@ const ImagePopup: React.FC<Props> = ({ photoId }) => {
         style={modalLoaderStyle}
       >
         <ProgressiveImage
-          src={`https://docs.google.com/uc?id=${photoId}`}
+          src={`https://drive.google.com/uc?id=${photoId}`}
           placeholder=""
         >
           {(src: string, loading: boolean) =>
