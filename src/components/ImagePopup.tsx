@@ -56,7 +56,7 @@ const ImagePopup: React.FC<Props> = ({ photoId }) => {
       >
         <ProgressiveImage
           src={`https://drive.google.com/uc?id=${photoId}`}
-          placeholder={`https://drive.google.com/thumbnail?id=${photoId}`}
+          placeholder={`https://drive.google.com/thumbnail?id=${photoId}&sz=w300`}
         >
           {(src: string) => <Photo src={src} alt="photo" />}
         </ProgressiveImage>
