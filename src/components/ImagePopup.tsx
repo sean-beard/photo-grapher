@@ -4,7 +4,7 @@ import ProgressiveImage from "react-progressive-image";
 import styled from "styled-components";
 
 import Modal from "components/Modal";
-import Loader, { modalLoaderStyle } from "components/Loading";
+import { modalLoaderStyle } from "components/Loading";
 import { Spacing, Breakpoints } from "styles/Base";
 
 const ViewButtonWrapper = styled.div`
@@ -56,11 +56,9 @@ const ImagePopup: React.FC<Props> = ({ photoId }) => {
       >
         <ProgressiveImage
           src={`https://drive.google.com/uc?id=${photoId}`}
-          placeholder=""
+          placeholder={`https://drive.google.com/thumbnail?id=${photoId}`}
         >
-          {(src: string, loading: boolean) =>
-            loading ? <Loader /> : <Photo src={src} alt="photo" />
-          }
+          {(src: string) => <Photo src={src} alt="photo" />}
         </ProgressiveImage>
       </Modal>
     </>
